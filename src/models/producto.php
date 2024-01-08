@@ -1,6 +1,6 @@
 <?php
 namespace models;
-use src\utils\ValidationUtils;
+use utils\ValidationUtils;
 
 class producto{
     private ?int $id;

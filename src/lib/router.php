@@ -1,4 +1,4 @@
-A<?php
+<?php
 
 function get($route, $path_to_include)
 {

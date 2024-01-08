@@ -5,7 +5,7 @@ use controllers\categoriaController;
 use controllers\productoController;
 use controllers\carritoController;
 class routes{
-    const PATH="/NuevoProyectoPracticandoTodo";
+    const PATH="/TiendaPHP";
 
     public static function getRoutes(){
 

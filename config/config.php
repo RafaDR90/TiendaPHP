@@ -1,4 +1,2 @@
 <?php
-
-
-define('BASE_URL','http://localhost/NuevoProyectoPracticandoTodo/');
+define('BASE_URL','http://localhost/TiendaPHP/');

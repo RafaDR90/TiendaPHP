@@ -1,10 +1,11 @@
-<?php use controllers\categoriaController,
-          controllers\productoController;?>
+<?php
+use controllers\categoriaController,
+    controllers\productoController;?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Tienda</title>
     <link rel="stylesheet" href="<?=BASE_URL?>public/styles/Header.css">
     <link rel="stylesheet" href="<?=BASE_URL?>public/styles/main.css">
     <link rel="stylesheet" href="<?=BASE_URL?>public/styles/normalize.css">

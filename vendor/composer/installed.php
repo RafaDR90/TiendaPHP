@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yes/nuevo-proyecto-practicando-todo',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '7b2283c1e79d86ebe12c6cb68d30818437798de8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -83,9 +83,9 @@
             'dev_requirement' => false,
         ),
         'yes/nuevo-proyecto-practicando-todo' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '7b2283c1e79d86ebe12c6cb68d30818437798de8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -1,6 +1,6 @@
 <?php
 namespace models;
-use src\utils\ValidationUtils;
+use utils\ValidationUtils;
 
 class usuario{
     private string|null $id;
