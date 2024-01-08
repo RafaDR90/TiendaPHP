@@ -1,0 +1,4 @@
+.resumenCompra{
+    display: flex;
+    flex-direction: column;
+}

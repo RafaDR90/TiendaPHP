@@ -1,0 +1,66 @@
+.editProductoFormContainer {
+    max-width: 800px; /* Ajusta según sea necesario */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.editProductoFormContainer h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.editProductoFormContainer form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Permite el ajuste responsivo */
+}
+
+.editProductoFormContainer form label,
+.editProductoFormContainer form input,
+.editProductoFormContainer form select,
+.editProductoFormContainer form textarea {
+    flex-basis: 48%; /* Ajusta para dos columnas, dejando algo de espacio */
+    margin-bottom: 10px;
+}
+
+.editProductoFormContainer form textarea {
+    height: 100px;
+    resize: vertical;
+    flex-basis: 100%; /* Textarea ocupa el ancho completo */
+}
+
+.editProductoFormContainer form input[type="submit"] {
+    flex-basis: 100%; /* El botón ocupa el ancho completo */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.editProductoFormContainer form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.editProductoFormContainer form small {
+    display: block;
+    color: #666;
+    flex-basis: 100%; /* 'small' toma el ancho completo */
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 600px) {
+    .editProductoFormContainer form label,
+    .editProductoFormContainer form input,
+    .editProductoFormContainer form select,
+    .editProductoFormContainer form textarea {
+        flex-basis: 100%; /* En pantallas pequeñas, cada elemento ocupa el ancho completo */
+    }
+}

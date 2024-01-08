@@ -1,0 +1,89 @@
+.gestionaProductosContainer {
+    width: 80%;
+    margin-top: 2.5vh;
+
+    padding: 20px;
+    min-height: 550px;
+    box-shadow: 0 2px 5px black;
+}
+
+.formSeleccionCategoria {
+    margin-bottom: 20px;
+}
+
+.formSeleccionCategoria label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.select-submit-container {
+    display: flex;
+    align-items: center;
+}
+
+.select-submit-container form {
+    display: flex;
+    width: 100%;
+}
+
+.select-submit-container select {
+    flex-grow: 1; /* Ocupa todo el espacio disponible excepto el necesario para el botón */
+    margin-right: 10px; /* Espacio entre el select y el botón */
+}
+
+.select-submit-container input[type="submit"] {
+    white-space: nowrap; /* Evita que el texto del botón se divida en varias líneas */
+    width: 150px;
+    margin-top: 2px
+}
+
+.modificaProductosContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.cardModificaProducto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.columnaDatos {
+    display: flex;
+    align-items: center;
+}
+
+.imgModifyProduct__container img {
+    width: 20px; /* Tamaño pequeño para la imagen */
+    height: auto;
+    margin-right: 15px;
+}
+
+.modifyProductNombre {
+    margin: 0;
+}
+
+.columnaButtons a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: blue;
+}
+
+.addProductoContainer a {
+    display: inline-block; /* Hacer que el enlace se comporte como un bloque */
+    padding: 10px 26px; /* Espaciado interno para hacerlo parecer un botón */
+    background-color: #007bff; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Eliminar subrayado del enlace */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño del texto */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+
+.addProductoContainer a:hover {
+    background-color: #0056b3; /* Cambiar color de fondo al pasar el mouse */
+    cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+}
+

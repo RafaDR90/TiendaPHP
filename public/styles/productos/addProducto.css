@@ -1,0 +1,28 @@
+.addProductoFormContainer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px black;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.addProductoFormContainer .form-group {
+    margin-bottom: 20px;
+}
+
+.addProductoFormContainer .form-group.inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addProductoFormContainer .form-group.inline > div {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.addProductoFormContainer .form-group.inline > div:last-child {
+    margin-right: 0;
+}
+

@@ -1,0 +1,150 @@
+/* Estilos generales para el contenedor del carrito */
+.carritoContainer {
+    width: 80%;
+    display: flex;
+    gap: 10%;
+     /* Asegura que los elementos se distribuyan */
+
+}
+
+/* Estilos para la sección de productos en el carrito */
+.productosCarrito {
+    flex-grow: 1; /* Permite que este contenedor ocupe el espacio disponible */
+    width: 60%; /* Ajusta el ancho máximo */
+}
+
+.carritoCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+.carritoCardImg img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.carritoCard h4 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.cantidad, .precio {
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.cantidad a {
+    display: inline-block; /* Para que el ancho y alto puedan ser definidos */
+    width: 25px; /* Tamaño cuadrado */
+    height: 25px;
+    line-height: 25px; /* Alinea el texto verticalmente */
+    background-color: #f2f2f2; /* Gris claro */
+    color: #333;
+    text-align: center;
+    border-radius: 2px; /* Esquinas ligeramente redondeadas */
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cantidad a:hover {
+    background-color: #e0e0e0; /* Gris un poco más oscuro en hover */
+}
+
+.eliminarProductoCarrito {
+    margin-left: auto;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para las opciones del carrito */
+.opcionesCarrito {
+    height: min-content;
+    width: 20%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.cantidad a {
+    background-color: #e0e0e0;
+    padding: 2px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.cantidad a:hover {
+    background-color: #b4b4b4;
+}
+.opcionesCarrito a{
+    background-color: #007bff;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+.opcionesCarrito a:hover{
+    background-color: #0056b3;
+}
+
+.opcionesCarrito a:hover {
+    background-color: #0056b3;
+}
+.cantidad, .precio, .opcionesCarrito p {
+    font-size: 16px; /* Tamaño de fuente general para cantidades y precios */
+    color: #333; /* Color de fuente general */
+}
+.cantidad span, .precio span, .opcionesCarrito span {
+    font-size: 18px; /* Tamaño de fuente más grande para números */
+    color: green; /* Color distintivo para números */
+    font-weight: bold; /* Hacer los números más destacados */
+}
+.opcionesCarrito p {
+    font-size: 16px; /* Tamaño de fuente para el texto */
+    margin: 5px 0;
+}
+
+.opcionesCarrito p span {
+    font-size: 20px; /* Tamaño de fuente más grande para el total */
+    color: #28a745; /* Color distintivo para los totales */
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .carritoContainer {
+        flex-direction: column;
+    }
+
+    .productosCarrito, .opcionesCarrito {
+        max-width: 100%;
+    }
+
+    .opcionesCarrito {
+        order: -1; /* Mueve las opciones del carrito arriba en pantallas pequeñas */
+    }
+}
