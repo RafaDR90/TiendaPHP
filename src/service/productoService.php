@@ -17,6 +17,9 @@ class productoService{
     public function productosPorCategoria($id){
         return $this->productoRepository->productosPorCategoria($id);
     }
+    public function productosPorCategoriaNotDeleted($id){
+        return $this->productoRepository->productosPorCategoriaNotDeleted($id);
+    }
 
     public function eliminarProducto($id){
         return $this->productoRepository->eliminarProducto($id);

@@ -30,11 +30,26 @@ class productoRepository{
             return $resultado;
         }
     }
+    public function productosPorCategoriaNotDeleted($id){
+        try{
+            $sel=$this->db->prepara("SELECT * FROM productos WHERE categoria_id=:id AND deleted=false");
+            $sel->bindParam(':id',$id,PDO::PARAM_INT);
+            $sel->execute();
+            $resultado=$sel->fetchAll(PDO::FETCH_ASSOC);
+
+        }catch (\PDOException $e){
+            $resultado=$e->getMessage();
+        } finally {
+            $sel->closeCursor();
+            $this->db->cierraConexion();
+            return $resultado;
+        }
+    }
 
     public function addProducto($producto){
         $error=null;
         try{
-            $insert=$this->db->prepara("INSERT INTO productos VALUES (null,:categoria_id,:nombre,:descripcion,:precio,:stock,:oferta,:fecha,:imagen)");
+            $insert=$this->db->prepara("INSERT INTO productos VALUES (null,:categoria_id,:nombre,:descripcion,:precio,:stock,:oferta,:fecha,:imagen,:deleted)");
             $insert->bindValue(':categoria_id',$producto->getCategoriaId());
             $insert->bindValue(':nombre',$producto->getNombre());
             $insert->bindValue(':descripcion',$producto->getDescripcion());
@@ -43,6 +58,7 @@ class productoRepository{
             $insert->bindValue(':oferta',$producto->getOferta());
             $insert->bindValue(':fecha',$producto->getFecha());
             $insert->bindValue(':imagen',$producto->getImagen());
+            $insert->bindValue(':deleted',false);
             $insert->execute();
         }catch (PDOException $e){
             $error=$e->getMessage();

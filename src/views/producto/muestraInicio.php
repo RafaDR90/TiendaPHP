@@ -24,6 +24,7 @@ foreach ($categorias as $categoria):
         <h3>¡Oferta!</h3>
         <?php endif;?>
         <p class="nombre__Producto"><?=$productos[$i]->getNombre()?></p>
+        <p class="descripcion__Producto"><?=$productos[$i]->getDescripcion()?></p>
         <p class="descripcion__Producto"<?=$productos[$i]->getDescripcion()?>></p>
 
         <div class="imgContainer">

@@ -81,7 +81,7 @@ class productoController{
             $this->pages->render('producto/muestraInicio',['error'=>'Ha ocurrido un error inesperado']);
             exit();
         }
-        $productos= $this->productoService->productosPorCategoria($id);
+        $productos= $this->productoService->productosPorCategoriaNotDeleted($id);
         if (is_string($productos)) {
             $this->pages->render('producto/muestraProductos', ['error' => $productos]);
         } else {
@@ -90,13 +90,13 @@ class productoController{
     }
 
     /**
-     * Obtiene un producto por ID de Categoria de forma estatica.
+     * Obtiene un producto que no estan deleted por ID de Categoria de forma estatica.
      * @param $id int ID de categoria
      * @return array|null array de productos o null si hay un error.
      */
     public static function productosPorCategoria($id):?array{
         $productoService=new productoService();
-        $productos=$productoService->productosPorCategoria($id);
+        $productos=$productoService->productosPorCategoriaNotDeleted($id);
         if (is_string($productos)){
             return null;
         }
@@ -116,7 +116,7 @@ class productoController{
         if ($_SERVER['REQUEST_METHOD']!='POST'){
             $this->pages->render('producto/addProducto');
         }else{
-            $directorioImg="./../src/img/productos/";
+            $directorioImg="./img/productos/";
             // Comprueba si el directorio existe, si no existe, lo crea.
             if (!is_dir($directorioImg)){
                 mkdir($directorioImg, 0777, true);
@@ -172,9 +172,10 @@ class productoController{
             $productoModel->setPrecio($datos['precio']);
             $productoModel->setStock($datos['stock']);
             $productoModel->setCategoriaId($_SESSION['editandoProducto']);
-            $productoModel->setOferta("no");
+            $productoModel->setOferta(false);
             $productoModel->setFecha(date('Y-m-d'));
             $productoModel->setImagen($nombreImagen);
+            $productoModel->setDeleted(false);
 
             //Sube el archivo y en caso de exito, añade el producto a la base de datos
             if (move_uploaded_file($_FILES["producto"]["tmp_name"]['imagen'], $rutaConImagen)) {

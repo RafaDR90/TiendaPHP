@@ -4,6 +4,7 @@ use controllers\usuarioController;
 use controllers\categoriaController;
 use controllers\productoController;
 use controllers\carritoController;
+use controllers\ErrorController;
 use lib\Router;
 class routes{
     const PATH="/TiendaPHP";
@@ -144,12 +145,9 @@ class routes{
     // LA PAGINA NO SE ENCUENTRA
         $router->any('/404', function (){
             header('Location: ' . self::PATH . '/error');
-                $productoController=new productoController();
-                $productoController->showIndex();
             });
         $router->get(self::PATH.'/error', function (){
-                $productoController=new productoController();
-                $productoController->showIndex();
+                ErrorController::showErrorView();
             });
 
         $router->resolve();

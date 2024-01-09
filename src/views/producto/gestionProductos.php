@@ -26,7 +26,20 @@ if (isset($gProductos)):?>
         <div class="addProductoContainer"><a href="<?=BASE_URL?>add-producto">Nuevo producto</a></div>
         <?php foreach ($gProductos as $producto):?>
         <div class="cardModificaProducto">
-            <div class="columnaDatos"><span class="modifyProductId"><small>Producto ID:</small> <?=$producto->getId()?>&nbsp;&nbsp;</span><div class="imgModifyProduct__container"><img src="<?=BASE_URL?>public/img/productos/<?=$producto->getImagen()?>"></div><p class="modifyProductNombre"><?=$producto->getNombre()?></p></div><div class="columnaButtons"><a href="<?=BASE_URL?>editar-producto/<?=$producto->getId()?>">Editar</a><a href="<?=BASE_URL?>eliminar-producto/<?=$producto->getId()?>">Eliminar</a> </div>
+            <div class="columnaDatos">
+                <span class="modifyProductId"><small>Producto ID:</small> <?=$producto->getId()?>&nbsp;&nbsp;</span>
+                <div class="imgModifyProduct__container"><img src="<?=BASE_URL?>public/img/productos/<?=$producto->getImagen()?>"></div>
+                <p class="modifyProductNombre"><?=$producto->getNombre()?></p>
+            </div>
+            <div class="columnaButtons">
+
+                <a href="<?=BASE_URL?>editar-producto/<?=$producto->getId()?>">Editar</a>
+                <?php if ($producto->isDeleted()):?>
+                    <span>Eliminado</span>
+                <?php else:?>
+                <a href="<?=BASE_URL?>eliminar-producto/<?=$producto->getId()?>">Eliminar</a>
+                <?php endif;?>
+            </div>
         </div>
         <?php endforeach;?>
     </div>

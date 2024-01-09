@@ -12,10 +12,11 @@ class producto{
     private bool $oferta;
     private string $fecha;
     private string $imagen;
+    private bool $deleted;
 
 
 
-    public function __construct(?int $id=null, int $categoria_id=null, string $nombre='', string $descripcion='', float $precio=0, int $stock=0, bool $oferta=false, string $fecha='', string $imagen='')
+    public function __construct(?int $id=null, int $categoria_id=null, string $nombre='', string $descripcion='', float $precio=0, int $stock=0, bool $oferta=false, string $fecha='', string $imagen='',bool $deleted=false)
     {
         $this->id=$id;
         $this->categoria_id=$categoria_id;
@@ -26,6 +27,7 @@ class producto{
         $this->oferta=$oferta;
         $this->fecha=$fecha;
         $this->imagen=$imagen;
+        $this->deleted=$deleted;
     }
 
     public static function fromArray(array $array): array
@@ -41,7 +43,8 @@ class producto{
                 $producto['stock']??0,
                 $producto['oferta']??false,
                 $producto['fecha']??'',
-                $producto['imagen'])??'';
+                $producto['imagen']??'',
+                $producto['deleted']??false);
         }
         return $productos;
     }
@@ -203,6 +206,16 @@ class producto{
     public function setImagen(string $imagen): void
     {
         $this->imagen = $imagen;
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): void
+    {
+        $this->deleted = $deleted;
     }
 
 
