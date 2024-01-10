@@ -15,7 +15,7 @@ use controllers\categoriaController,
 </head>
 <body>
     <header>
-        <h1><a href="<?=BASE_URL?>">TIENDA Lo ultimo que he hecho ha sido gestionProductos poner el eliminado</a></h1>
+        <h1><a href="<?=BASE_URL?>">TIENDA Lo ultimo que he hecho ha sido gestionProductos poner el eliminado. Estoy con el edit producto</a></h1>
         <ul>
         <?php
         if (isset($_SESSION['identity'])): ?>

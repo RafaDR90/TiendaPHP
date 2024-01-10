@@ -32,11 +32,12 @@ class categoriaRepository{
      */
     public function borrarCategoriaPorId(int $id):?string{
         try {
-            //elimina antes los productos de dicha categoria
+            //Descataloga antes los productos y los marca como eliminados
             $this->db->beginTransaction();
-            $deleteProductos = $this->db->prepara("DELETE FROM productos WHERE categoria_id = :id");
+            $deleteProductos = $this->db->prepara("UPDATE productos SET deleted = true, categoria_id = null WHERE categoria_id = :id");
             $deleteProductos->bindValue(':id', $id);
             $deleteProductos->execute();
+            
             //elimina la categoria
             $deleteCategoria = $this->db->prepara("DELETE FROM categorias WHERE id = :id");
             $deleteCategoria->bindValue(':id', $id);

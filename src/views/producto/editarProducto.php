@@ -20,9 +20,12 @@
             <option value=1 <?=$productoEdit->getOferta() == true ? 'selected' : ''; ?>>Sí</option>
             <option value=0 <?=$productoEdit->getOferta() == false ? 'selected' : ''; ?>>No</option>
         </select><br>
-
-        <label for="fecha">Fecha:</label><br>
-        <input type="date" id="fecha" name="edit[fecha]" value="<?=$productoEdit->getFecha(); ?>"><br>
+        <label for="categoria">Categoría:</label><br>
+        <select id="categoria" name="edit[categoria]">
+            <option value="NA" <?=$productoEdit->getCategoriaId()==null ? 'selected' :''; ?>>Descatalogado</option>
+            <?php foreach ($categorias as $categoria):?>
+            <option value="<?=$categoria->getId();?>" <?=$productoEdit->getCategoriaId() == $categoria->getId() ? 'selected' : ''; ?>><?=$categoria->getNombre();?></option>
+            <?php endforeach;?>
 
         <label for="imagen">Imagen:</label><br>
         <input type="file" id="imagen" name="edit[imagen]"><br>
