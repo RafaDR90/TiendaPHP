@@ -33,46 +33,46 @@ class productoController{
         if ($_SERVER['REQUEST_METHOD']!='POST' && !isset($_SESSION['editandoProducto'])){
             $this->pages->render('producto/gestionProductos');
             exit();
-        }else {
-            if (isset($_POST['categoriaId'])){
-                //es NA si no selecciono nada
-                if ($_POST['categoriaId']=='NA'){
-                    $this->pages->render('producto/gestionProductos',['error'=>'Selecciona una categoria']);
-                    exit();
-                }elseif ($_POST['categoriaId']=='none'){
-                    $productos=$this->productoService->productosDescatalogados();
-                }elseif($_POST['categoriaId']=='deleted') {
-                    $productos = $this->productoService->productosEliminados();
-                }else{
-                    $id=ValidationUtils::SVNumero($_POST['categoriaId']);
-                    if (!isset($id)){
-                        $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);
-                        exit();
-                    }
-                    $_SESSION['editandoProducto']=$id;
-                    $productos=$this->productoService->productosPorCategoria($id);
-                }
-                //es string si falla la consulta.
-                if (is_string($productos)){
-                    $this->pages->render('producto/gestionProductos',['error'=>$productos]);
-                    exit();
-                }
-            }elseif(isset($_SESSION['editandoProducto'])){
-                if ($_SESSION['editandoProducto']=='none'){
-                    $productos=$this->productoService->productosDescatalogados();
-                }elseif($_SESSION['editandoProducto']=='deleted') {
-                    $productos = $this->productoService->productosEliminados();
-                }else{
-                    $productos=$this->productoService->productosPorCategoria($_SESSION['editandoProducto']);
-                }
-                if (is_string($productos)){
-                    $this->pages->render('producto/gestionProductos',['error'=>$productos]);
-                    exit();
-                }
-            }
-            $productos=producto::fromArray($productos);
-            $this->pages->render('producto/gestionProductos', ['gProductos' => $productos]);
         }
+        if (isset($_POST['categoriaId'])){
+            //es NA si no selecciono nada
+            if ($_POST['categoriaId']=='NA'){
+                $this->pages->render('producto/gestionProductos',['error'=>'Selecciona una categoria']);
+                exit();
+            }elseif ($_POST['categoriaId']=='none'){
+                $productos=$this->productoService->productosDescatalogados();
+            }elseif($_POST['categoriaId']=='deleted') {
+                $productos = $this->productoService->productosEliminados();
+            }else{
+                $id=ValidationUtils::SVNumero($_POST['categoriaId']);
+                if (!isset($id)){
+                    $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);
+                    exit();
+                }
+                $_SESSION['editandoProducto']=$id;
+                $productos=$this->productoService->productosPorCategoria($id);
+            }
+            //es string si falla la consulta.
+            if (is_string($productos)){
+                $this->pages->render('producto/gestionProductos',['error'=>$productos]);
+                exit();
+            }
+        }elseif(isset($_SESSION['editandoProducto'])){
+            if ($_SESSION['editandoProducto']=='none'){
+                $productos=$this->productoService->productosDescatalogados();
+            }elseif($_SESSION['editandoProducto']=='deleted') {
+                $productos = $this->productoService->productosEliminados();
+            }else{
+                $productos=$this->productoService->productosPorCategoria($_SESSION['editandoProducto']);
+            }
+            if (is_string($productos)){
+                $this->pages->render('producto/gestionProductos',['error'=>$productos]);
+                exit();
+            }
+        }
+        $productos=producto::fromArray($productos);
+        $this->pages->render('producto/gestionProductos', ['gProductos' => $productos]);
+
     }
 
     /**
