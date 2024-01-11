@@ -88,6 +88,11 @@ class producto{
         $stock=ValidationUtils::SVNumero($producto['stock']);
         $oferta=ValidationUtils::SBoolean($producto['oferta']);
         $fecha=ValidationUtils::sanitizeAndValidateDate($producto['fecha']);
+        if ($producto['categoria_id']!="NA"){
+            $categoriaId=ValidationUtils::SVNumero($producto['categoria_id']);
+        }else{
+            $categoriaId="NA";
+        }
         if(!ValidationUtils::noEstaVacio($nombre)){
             return "El nombre no puede estar vacío";
         }
@@ -109,13 +114,19 @@ class producto{
         if(!isset($fecha)){
             return "La fecha no es valida";
         }
+        if (!isset($categoriaId)){
+            return "La categoria no es valida";
+        }
+
         return array(
             "nombre"=>$nombre,
             "descripcion"=>$descripcion,
             "precio"=>$precio,
             "stock"=>$stock,
             "oferta"=>$oferta,
-            "fecha"=>$fecha);
+            "fecha"=>$fecha,
+            "categoria"=>$categoriaId
+        );
     }
 
     public function getId(): ?int

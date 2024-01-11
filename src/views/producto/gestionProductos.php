@@ -5,8 +5,10 @@
         <form action="<?=BASE_URL?>gestion-productos" method="POST">
             <select name="categoriaId" id="categoria">
                 <?php if(!isset($_SESSION['editandoProducto'])):?>
-                <option value="NA" selected>Todas las categorias</option>
+                <option value="NA" selected>Seleccione categoria</option>
                 <?php endif?>
+                <option value="none">Descatalogados</option>
+                <option value="deleted">Eliminados</option>
 <?php
 foreach ($categorias as $categoria):
     if ($categoria->getId()==$_SESSION['editandoProducto']):?>

@@ -26,11 +26,7 @@ class productoController{
      * @return void
      */
     public function muestraGestionProductos():void{
-        if (!isset($_SESSION['identity'])){
-            if ($_SESSION['identity']['rol']=='admin'){
-                $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
-                exit();
-            }
+        if (!isset($_SESSION['identity']) or $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'Debes identificarte como administrador para poder administrar productos']);
             exit();
         }
@@ -39,23 +35,36 @@ class productoController{
             exit();
         }else {
             if (isset($_POST['categoriaId'])){
+                //es NA si no selecciono nada
                 if ($_POST['categoriaId']=='NA'){
                     $this->pages->render('producto/gestionProductos',['error'=>'Selecciona una categoria']);
                     exit();
+                }elseif ($_POST['categoriaId']=='none'){
+                    $productos=$this->productoService->productosDescatalogados();
+                }elseif($_POST['categoriaId']=='deleted') {
+                    $productos = $this->productoService->productosEliminados();
+                }else{
+                    $id=ValidationUtils::SVNumero($_POST['categoriaId']);
+                    if (!isset($id)){
+                        $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);
+                        exit();
+                    }
+                    $_SESSION['editandoProducto']=$id;
+                    $productos=$this->productoService->productosPorCategoria($id);
                 }
-                $id=ValidationUtils::SVNumero($_POST['categoriaId']);
-                if (!isset($id)){
-                    $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);
-                    exit();
-                }
-                $_SESSION['editandoProducto']=$id;
-                $productos=$this->productoService->productosPorCategoria($id);
+                //es string si falla la consulta.
                 if (is_string($productos)){
                     $this->pages->render('producto/gestionProductos',['error'=>$productos]);
                     exit();
                 }
             }elseif(isset($_SESSION['editandoProducto'])){
-                $productos=$this->productoService->productosPorCategoria($_SESSION['editandoProducto']);
+                if ($_SESSION['editandoProducto']=='none'){
+                    $productos=$this->productoService->productosDescatalogados();
+                }elseif($_SESSION['editandoProducto']=='deleted') {
+                    $productos = $this->productoService->productosEliminados();
+                }else{
+                    $productos=$this->productoService->productosPorCategoria($_SESSION['editandoProducto']);
+                }
                 if (is_string($productos)){
                     $this->pages->render('producto/gestionProductos',['error'=>$productos]);
                     exit();
@@ -307,10 +316,14 @@ class productoController{
                 $nuevoProducto=[];
             $nuevoProducto['oferta']=(bool)$edit['oferta'];
         }
-        if ($oldProducto[0]->getFecha()!=$edit['fecha']){
+        $catId=$oldProducto[0]->getCategoriaId();
+        if ($catId==null){
+            $catId='NA';
+        }
+        if($catId!=$edit['categoria'] ){
             if (!isset($nuevoProducto))
                 $nuevoProducto=[];
-            $nuevoProducto['fecha']=$edit['fecha'];
+            $nuevoProducto['categoria_id']=$edit['categoria'];
         }
         /* En caso de que el se haya cambiado algun campo, se comprueba que los campos que no se han cambiado no esten
            vacios, si estan vacios, se les asigna el valor que tenian antes de validar el producto */
@@ -333,6 +346,9 @@ class productoController{
             if (!isset($nuevoProducto['fecha'])) {
                 $nuevoProducto['fecha'] = $oldProducto[0]->getFecha();
             }
+            if (!isset($nuevoProducto['categoria_id'])) {
+                $nuevoProducto['categoria_id'] = $oldProducto[0]->getCategoriaId();
+            }
             $productoModel = new producto();
 
             $nuevoProducto = $productoModel->saneaYvalidaProductoCompleto($nuevoProducto);
@@ -349,7 +365,12 @@ class productoController{
                 mkdir($directorioImg, 0777, true);
             }
             $categoriaService=new categoriaService();
-            $datosCategoria=$categoriaService->obtenerCategoriaPorID($_SESSION['editandoProducto']);
+            $catId=ValidationUtils::SVNumero($edit['categoria']);
+            if(!isset($catId)){
+                $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);
+                exit();
+            }
+            $datosCategoria=$categoriaService->obtenerCategoriaPorID($catId);
             $nombreImagen = $datosCategoria["nombre"]."_".$_FILES['edit']['name']['imagen'];
             $rutaConImagen=$directorioImg . basename($nombreImagen);
             $tipoImagen = strtolower(pathinfo($rutaConImagen,PATHINFO_EXTENSION));

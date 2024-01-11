@@ -93,6 +93,11 @@ class routes{
         $router->post(self::PATH.'/editar-producto', function () use ($productoController){
                 $productoController->confirmaEdicion($_POST['id'],$_POST["edit"]);
             });
+        // REESTABLECER PRODUCTO
+        $router->get(self::PATH.'/reestablecer-producto/$id', function ($id) use ($productoController){
+            die("entra");
+                $productoController->reestablecerProducto($id);
+            });
 
     // VER PRODUCTOS
         $router->get(self::PATH.'/productos/$id', function ($id) use ($productoController){

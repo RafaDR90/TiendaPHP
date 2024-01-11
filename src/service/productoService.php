@@ -8,9 +8,6 @@ class productoService{
         $this->productoRepository=new productoRepository();
     }
 
-
-
-
     public function addProducto($producto){
         return $this->productoRepository->addProducto($producto);
     }
@@ -40,5 +37,12 @@ class productoService{
     }
     public function restarStock($id,$unidades){
         return $this->productoRepository->restarStock($id,$unidades);
+    }
+
+    public function productosDescatalogados(){
+        return $this->productoRepository->productosDescatalogados();
+    }
+    public function productosEliminados(){
+        return $this->productoRepository->productosEliminados();
     }
 }

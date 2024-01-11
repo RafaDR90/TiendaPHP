@@ -120,15 +120,15 @@ class productoRepository{
         $error=null;
         try{
             $this->db=new BaseDeDatos();
-            $update=$this->db->prepara("UPDATE productos SET nombre=:nombre,descripcion=:descripcion,precio=:precio,stock=:stock,oferta=:oferta,fecha=:fecha,imagen=:imagen WHERE id=:id");
+            $update=$this->db->prepara("UPDATE productos SET nombre=:nombre,descripcion=:descripcion,precio=:precio,stock=:stock,oferta=:oferta,imagen=:imagen, categoria_id=:categoria_id WHERE id=:id");
             $update->bindValue(':id',$id);
             $update->bindValue(':nombre',$producto['nombre']);
             $update->bindValue(':descripcion',$producto['descripcion']);
             $update->bindValue(':precio',$producto['precio']);
             $update->bindValue(':stock',$producto['stock']);
             $update->bindValue(':oferta',$producto['oferta']);
-            $update->bindValue(':fecha',$producto['fecha']);
             $update->bindValue(':imagen',$producto['imagen']);
+            $update->bindValue(':categoria_id',$producto['categoria']);
             $update->execute();
         }catch (PDOException $e){
             $error=$e->getMessage();
@@ -168,6 +168,42 @@ class productoRepository{
             $update->closeCursor();
             $this->db->cierraConexion();
             return $error;
+        }
+    }
+
+    /**
+     * Obtiene los productos que no tienen categoria asignada.
+     * @return array|string Devuelve un array con los productos o un string con el error.
+     */
+    public function productosDescatalogados():array|string{
+        try{
+            $sel=$this->db->prepara("SELECT * FROM productos WHERE categoria_id IS NULL");
+            $sel->execute();
+            $resultado=$sel->fetchAll(PDO::FETCH_ASSOC);
+        }catch (\PDOException $e){
+            $resultado=$e->getMessage();
+        } finally {
+            $sel->closeCursor();
+            $this->db->cierraConexion();
+            return $resultado;
+        }
+    }
+
+    /**
+     * Obtiene los productos que han sido eliminados.
+     * @return array|string Devuelve un array con los productos o un string con el error.
+     */
+    public function productosEliminados():array|string{
+        try{
+            $sel=$this->db->prepara("SELECT * FROM productos WHERE deleted=true");
+            $sel->execute();
+            $resultado=$sel->fetchAll(PDO::FETCH_ASSOC);
+        }catch (\PDOException $e){
+            $resultado=$e->getMessage();
+        } finally {
+            $sel->closeCursor();
+            $this->db->cierraConexion();
+            return $resultado;
         }
     }
 }
