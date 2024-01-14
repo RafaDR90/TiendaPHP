@@ -41,8 +41,10 @@ class productoController{
                 exit();
             }elseif ($_POST['categoriaId']=='none'){
                 $productos=$this->productoService->productosDescatalogados();
+                $_SESSION['editandoProducto']='none';
             }elseif($_POST['categoriaId']=='deleted') {
                 $productos = $this->productoService->productosEliminados();
+                $_SESSION['editandoProducto']='deleted';
             }else{
                 $id=ValidationUtils::SVNumero($_POST['categoriaId']);
                 if (!isset($id)){
@@ -118,6 +120,14 @@ class productoController{
      * @return void
      */
     public function addProducto():void{
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['editandoProducto'])&&$_SESSION['editandoProducto']=='none' or $_SESSION['editandoProducto']=='deleted'){
+            $this->pages->render('producto/muestraInicio',['error'=>'Debes seleccionar una categoria para añadir un producto']);
+            exit();
+        }
+
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();
@@ -220,25 +230,15 @@ class productoController{
         }
         //no se usa else porque al validar el id, si no es un numero, devuelve null
         if($id==null){
-            $this->pages->render('producto/muestraInicio',['error'=>'Ha ocurrido un error inesperado']);
+            $this->pages->render('producto/muestraInicio',['error'=>'La id no es valida']);
             exit();
         }
-        //obtiene el nombre de la imagen del producto a eliminar para poder eliminarla
-        $productoAEliminar=$this->productoService->obtenerNombreImagen($id);
-        if (is_string($productoAEliminar)){
-            $this->pages->render('producto/gestionProductos',['error'=>"No se encuentra el producto a eliminar"]);
+        if(!$this->productoService->eliminarProducto($id)){
+            $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);
             exit();
-        }
-        $error=$this->productoService->eliminarProducto($id);
-        if (isset($error)){
-            $this->pages->render('producto/gestionProductos',['error'=>$error]);
-            exit();
-        }
-        //elimina la imagen del producto
-        if (file_exists("./../src/img/productos/".$productoAEliminar['imagen'])){
-            unlink("./../src/img/productos/".$productoAEliminar['imagen']);
         }
         $this->pages->render('producto/gestionProductos',['exito'=>'Producto eliminado correctamente']);
+
     }
 
     /**
@@ -321,6 +321,10 @@ class productoController{
             $catId='NA';
         }
         if($catId!=$edit['categoria'] ){
+            if ($edit['categoria']=='NA'){
+                $this->pages->render('producto/gestionProductos',['error'=>'Debes seleccionar una categoria']);
+                exit();
+            }
             if (!isset($nuevoProducto))
                 $nuevoProducto=[];
             $nuevoProducto['categoria_id']=$edit['categoria'];
@@ -360,7 +364,7 @@ class productoController{
         //HASTA AQUI TENGO $NUEVOPRODUCTO SANEADO Y VALIDADO
         //Comprueba si se ha cambiado la imagen
         if (isset($_FILES['edit']['name']['imagen']) && $_FILES['edit']['error']['imagen'] == 0){
-            $directorioImg="./../src/img/productos/";
+            $directorioImg="./img/productos/";
             if (!is_dir($directorioImg)){
                 mkdir($directorioImg, 0777, true);
             }
@@ -403,8 +407,8 @@ class productoController{
             }
             //en caso de exito continua con la edicion, de lo contrario, muestra un error
             if(move_uploaded_file($_FILES["edit"]["tmp_name"]['imagen'], $rutaConImagen)){
-                if(file_exists("./../src/img/productos/".$oldProducto[0]->getImagen())){
-                    unlink("./../src/img/productos/".$oldProducto[0]->getImagen());
+                if(file_exists("./img/productos/".$oldProducto[0]->getImagen())){
+                    unlink("./img/productos/".$oldProducto[0]->getImagen());
                 }
                 $nuevaImagen=$nombreImagen;
             }else{
@@ -431,6 +435,32 @@ class productoController{
             }
             $this->pages->render('producto/gestionProductos',['exito'=>'Producto editado con exito']);
         }
+    }
+
+    /**
+     * Reestablece un producto eliminado por su ID
+     * @param $id int ID de producto
+     * @return void
+     */
+    public function reestablecerProducto($id):void{
+        if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
+            $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
+            exit();
+        }
+        if(isset($id)){
+            $id=ValidationUtils::SVNumero($id);
+        }
+        //no se usa else porque al validar el id, si no es un numero, devuelve null
+        if($id==null){
+            $this->pages->render('producto/muestraInicio',['error'=>'Ha ocurrido un error inesperado']);
+            exit();
+        }
+        $error=$this->productoService->reestablecerProducto($id);
+        if (isset($error)){
+            $this->pages->render('producto/gestionProductos',['error'=>$error]);
+            exit();
+        }
+        $this->pages->render('producto/gestionProductos',['exito'=>'Producto reestablecido correctamente']);
     }
 
 

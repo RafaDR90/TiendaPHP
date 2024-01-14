@@ -15,11 +15,12 @@ use controllers\categoriaController,
 </head>
 <body>
     <header>
-        <h1><a href="<?=BASE_URL?>">TIENDA NO ME ENTRA EN REESTABLECER PRODUCTO, NO FUNCIONA EL ENLACE a</a></h1>
+        <h1><a href="<?=BASE_URL?>">PRIMALK</a></h1>
         <ul>
         <?php
         if (isset($_SESSION['identity'])): ?>
             <li><a href="<?= BASE_URL ?>CierraSesion">Cerrar sesion</a></li>
+            <li><a href="<?= BASE_URL ?>misPedidos">Mis pedidos</a></li>
             <?php if ($_SESSION['identity']['rol']=='admin'): ?>
             <li><a href="<?= BASE_URL ?>gestionarCategorias">Gestionar categorias</a></li>
             <li><a href="<?= BASE_URL ?>gestion-productos">Gestionar productos</a></li>
@@ -37,19 +38,20 @@ use controllers\categoriaController,
                 <?php foreach ($categorias as $categoria):
                     // Compruebo si hay productos en stock para mostrar la categoria
                     $hProductos=productoController::productosPorCategoria($categoria->getId());
+                    $disponible=false;
                     if (isset($hProductos) and !empty($hProductos)){
-                        $stock=null;
                         foreach ($hProductos as $producto){
-                            if ($producto->getStock()>0){
-                                $stock=true;
+                            if ($producto->getStock()>0 and !$producto->isDeleted()){
+                                $disponible=true;
                             }
                         }
                     }
-                    if (isset($stock)): ?>
+                    if ($disponible): ?>
                     <li>
                         <a href="<?=BASE_URL?>productos/<?= $categoria->getId() ?>"><?php echo $categoria->getNombre(); ?></a>
                     </li>
-                <?php endif;
+                <?php
+                    endif;
                 endforeach;?>
             </ul>
         </nav>

@@ -81,6 +81,11 @@ class usuario{
         $this->rol = $rol;
     }
 
+    /**
+     * Transforma un array en un objeto usuario
+     * @param array $data array con los datos a transformar
+     * @return usuario objeto usuario
+     */
     public static function fromArray(array $data):usuario{
         return new usuario(
             $data['id']?? null,
@@ -92,7 +97,11 @@ class usuario{
         );
     }
 
-    public function saneaYValidaUsuario(){
+    /**
+     * Sanea y valida los datos de un usuario
+     * @return string|null null si los datos son validos o un mensaje de error
+     */
+    public function saneaYValidaUsuario(): ?string{
         //saneamos los datos
             $this->setNombre(ValidationUtils::sanidarStringFiltro($this->getNombre()));
             $this->setApellidos(ValidationUtils::sanidarStringFiltro($this->getApellidos()));
@@ -136,6 +145,11 @@ class usuario{
         return null;
     }
 
+    /**
+     * Comprueba si la contraseña es correcta
+     * @param $pasword string contraseña a comprobar
+     * @return bool true si la contraseña es correcta o false si no lo es
+     */
     public function comprobarPassword($pasword){
         if (password_verify($this->getPassword(),$pasword)){
             return true;
@@ -144,8 +158,5 @@ class usuario{
         }
     }
 
-    public function validar(){}
-
-    public function sanear(){}
 
 }

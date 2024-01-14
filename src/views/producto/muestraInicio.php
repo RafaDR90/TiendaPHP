@@ -6,7 +6,15 @@ use controllers\productoController;
 <?php
 foreach ($categorias as $categoria):
     $productos=productoController::productosPorCategoria($categoria->getId());
-    if (count($productos)>0):?>
+    $disponible=false;
+    if (isset($productos) and !empty($productos)){
+        foreach ($productos as $producto){
+            if ($producto->getStock()>0 and !$producto->isDeleted()){
+                $disponible=true;
+            }
+        }
+    }
+    if ($disponible):?>
     <h4><?=$categoria->getNombre()?></h4>
     <hr>
     <div class="gridProductos">

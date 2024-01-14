@@ -45,4 +45,8 @@ class productoService{
     public function productosEliminados(){
         return $this->productoRepository->productosEliminados();
     }
+    public function reestablecerProducto($id){
+        return $this->productoRepository->reestablecerProducto($id);
+    }
+
 }

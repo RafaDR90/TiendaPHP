@@ -8,4 +8,7 @@ class lineasPedidoService{
     {
         $this->lineasPedidoRepository=new lineasPedidoRepository();
     }
+    public function create($id,$pedidoId,$unidades){
+        return $this->lineasPedidoRepository->create($id,$pedidoId,$unidades);
+    }
 }

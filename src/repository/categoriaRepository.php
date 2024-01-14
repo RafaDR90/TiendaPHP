@@ -10,6 +10,10 @@ class categoriaRepository{
         $this->db=new BaseDeDatos();
     }
 
+    /**
+     * Obtiene todas las categorías.
+     * @return array|string Devuelve un array con todas las categorías, o un string con el mensaje de error.
+     */
     public function getAll():array|string
     {
         try{
@@ -80,6 +84,11 @@ class categoriaRepository{
         }
     }
 
+    /**
+     * Actualiza una categoría.
+     * @param $categoria
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
     public function update($categoria):?string{
         try{
             $update=$this->db->prepara("UPDATE categorias SET nombre=:nombre WHERE id=:id");
@@ -96,6 +105,11 @@ class categoriaRepository{
         }
     }
 
+    /**
+     * Crea una nueva categoría.
+     * @param $categoria
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
     public function create($categoria):?string{
         try{
             $insert=$this->db->prepara("INSERT INTO categorias (nombre) VALUES (:nombre)");

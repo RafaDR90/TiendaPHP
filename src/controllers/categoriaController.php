@@ -44,7 +44,7 @@ class categoriaController{
      * @param $id int el id de la categoria a eliminar
      * @return void renderiza la vista de gestion de categorias
      */
-    public function eliminarCategoriaPorId($id){
+    public function eliminarCategoriaPorId($id):void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();
@@ -64,8 +64,8 @@ class categoriaController{
 
     /**
      * funcion que muestra la vista de editar categoria
-     * @param $id
-     * @return void
+     * @param $id int el id de la categoria a editar
+     * @return void renderiza la vista de gestion de categoria
      */
     public function editarCategoria($id):void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
@@ -122,7 +122,7 @@ class categoriaController{
 
     /**
      * funcion que muestra la vista de crear categoria, si se ha enviado el formulario de crear categoria se crea la categoria
-     * @return void
+     * @return void renderiza la vista de gestion de categorias
      */
     public function crearCategoria():void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin') {

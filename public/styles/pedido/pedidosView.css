@@ -1,0 +1,76 @@
+
+/* Contenedor principal del pedido */
+.pedidoContainer {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilos para la fecha del pedido */
+.pedidoContainer p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Estilos para la información del producto en el pedido */
+.infoProductoPedido {
+    display: flex;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.pedidoImgContainer {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.pedidoImgContainer img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+.pedidoInfoContainer {
+    flex: 2;
+}
+
+.pedidoInfoContainer p {
+    margin: 5px 0;
+}
+
+/* Estilos para la información adicional del pedido */
+.infoPedido {
+    /* Puedes agregar estilos adicionales según sea necesario */
+}
+
+/* Estilos para el precio del pedido */
+.pedidoPrice {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Estilos para el estado del pedido */
+.estadoPedido {
+    font-size: 16px;
+    margin-top: 5px;
+    color: #007bff; /* Puedes ajustar el color según sea necesario */
+}
+
+/* Media queries para pantallas más pequeñas (ej. dispositivos móviles) */
+@media only screen and (max-width: 768px) {
+    .infoProductoPedido {
+        flex-direction: column; /* Cambia la dirección de la flexbox a columna en pantallas pequeñas */
+    }
+
+    .pedidoImgContainer {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .pedidoInfoContainer {
+        flex: 1;
+    }
+}

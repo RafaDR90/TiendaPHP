@@ -30,6 +30,12 @@ class productoRepository{
             return $resultado;
         }
     }
+
+    /**
+     * Obtiene un producto por ID de categoria que no esté eliminado.
+     * @param $id int ID de la categoria.
+     * @return array|false|string
+     */
     public function productosPorCategoriaNotDeleted($id){
         try{
             $sel=$this->db->prepara("SELECT * FROM productos WHERE categoria_id=:id AND deleted=false");
@@ -46,6 +52,11 @@ class productoRepository{
         }
     }
 
+    /**
+     * Añade un producto a la base de datos.
+     * @param $producto
+     * @return string|null
+     */
     public function addProducto($producto){
         $error=null;
         try{
@@ -69,25 +80,32 @@ class productoRepository{
         }
     }
 
+    /**
+     * Marca un producto como eliminado.
+     * @param $id int ID del producto a eliminar.
+     * @return bool Devuelve true si la operación es exitosa, o false en caso contrario.
+     */
     public function eliminarProducto($id){
-        $error=null;
         try{
-            /* Vuelvo a crear db porque antes de eliminar uso otra funcion que la cierra y no interesa modificar
-               el cierre de la otra funcion */
-            $this->db=new BaseDeDatos();
-            $delete=$this->db->prepara("DELETE FROM productos WHERE id=:id");
-            $delete->bindValue(':id',$id);
-            $delete->execute();
-        }catch (PDOException $e){
-            $error=$e->getMessage();
+            $update=$this->db->prepara("UPDATE productos SET deleted=true WHERE id=:id");
+            $update->bindValue(':id',$id);
+            $update->execute();
+            $exito=true;
+        }catch (PDOException){
+            $exito=false;
         } finally {
-            $delete->closeCursor();
+            $update->closeCursor();
             $this->db->cierraConexion();
-            return $error;
+            return $exito;
         }
     }
 
-    public function obtenerNombreImagen($id){
+    /**
+     * Obtiene el nombre de la imagen de un producto.
+     * @param $id int ID del producto.
+     * @return mixed|string
+     */
+    public function obtenerNombreImagen($id):mixed{
         try{
             $sel=$this->db->prepara("SELECT imagen FROM productos WHERE id=:id");
             $sel->bindValue(':id',$id);
@@ -101,7 +119,13 @@ class productoRepository{
             return $resultado;
         }
     }
-    public function getProductoByIdProducto($id){
+
+    /**
+     * Obtiene un producto por su ID
+     * @param $id int ID del producto.
+     * @return mixed|string Devuelve un array con los datos del producto o un string con el error.
+     */
+    public function getProductoByIdProducto($id):mixed{
         try{
             $sel=$this->db->prepara("SELECT * FROM productos WHERE id=:id");
             $sel->bindValue(':id',$id);
@@ -116,7 +140,13 @@ class productoRepository{
         }
     }
 
-    public function editarProducto($id,$producto){
+    /**
+     * Edita un producto de la base de datos.
+     * @param $id int ID del producto a editar.
+     * @param $producto array Datos del producto.
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
+    public function editarProducto($id, $producto):?string{
         $error=null;
         try{
             $this->db=new BaseDeDatos();
@@ -138,7 +168,14 @@ class productoRepository{
             return $error;
         }
     }
-    public function editarImagenProducto($id,$imagen){
+
+    /**
+     * Edita la imagen de un producto.
+     * @param $id int ID del producto a editar.
+     * @param $imagen string Nombre de la imagen.
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
+    public function editarImagenProducto($id, $imagen):?string{
         $error=null;
         try{
             $this->db=new BaseDeDatos();
@@ -154,7 +191,14 @@ class productoRepository{
             return $error;
         }
     }
-    public function restarStock($id,$unidades){
+
+    /**
+     * Resta unidades al stock de un producto.
+     * @param $id int ID del producto.
+     * @param $unidades int Unidades a restar.
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
+    public function restarStock($id, $unidades):?string{
         $error=null;
         try{
             $this->db=new BaseDeDatos();
@@ -206,4 +250,25 @@ class productoRepository{
             return $resultado;
         }
     }
+
+    /**
+     * Restablece un producto eliminado.
+     * @param $id int ID del producto.
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
+    public function reestablecerProducto($id):?string{
+        $error=null;
+        try{
+            $update=$this->db->prepara("UPDATE productos SET deleted=false WHERE id=:id");
+            $update->bindValue(':id',$id);
+            $update->execute();
+        }catch (PDOException $e){
+            $error=$e->getMessage();
+        } finally {
+            $update->closeCursor();
+            $this->db->cierraConexion();
+            return $error;
+        }
+    }
+
 }

@@ -30,6 +30,11 @@ class producto{
         $this->deleted=$deleted;
     }
 
+    /**
+     * Transforma un array en un array de objetos producto
+     * @param array $array array con los datos a transformar
+     * @return array
+     */
     public static function fromArray(array $array): array
     {
         $productos=[];
@@ -49,7 +54,12 @@ class producto{
         return $productos;
     }
 
-    public function saneaYvalidaProducto(array $producto){
+    /**
+     * Sanea y valida los datos de un producto
+     * @param array $producto array con los datos a sanear y validar
+     * @return array|string con los datos saneados y validados o un mensaje de error
+     */
+    public function saneaYvalidaProducto(array $producto): array|string{
 
         $nombre=ValidationUtils::sanidarStringFiltro($producto['nombre']);
         $descripcion=ValidationUtils::sanidarStringFiltro($producto['descripcion']);
@@ -80,7 +90,12 @@ class producto{
             "stock"=>$stock);
     }
 
-    public function saneaYvalidaProductoCompleto(array $producto){
+    /**
+     * Sanea y valida los datos de un producto completo
+     * @param array $producto array con los datos a sanear y validar
+     * @return array|string con los datos saneados y validados o un mensaje de error
+     */
+    public function saneaYvalidaProductoCompleto(array $producto): array|string{
 
         $nombre=ValidationUtils::sanidarStringFiltro($producto['nombre']);
         $descripcion=ValidationUtils::sanidarStringFiltro($producto['descripcion']);

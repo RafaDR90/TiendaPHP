@@ -5,10 +5,16 @@ use controllers\categoriaController;
 use controllers\productoController;
 use controllers\carritoController;
 use controllers\ErrorController;
+use controllers\pedidoController;
+use Dotenv\Exception\InvalidEncodingException;
 use lib\Router;
 class routes{
     const PATH="/TiendaPHP";
 
+    /**
+     * Obtiene las rutas de la aplicacion
+     * @return void
+     */
     public static function getRoutes(){
     $router=new Router();
 
@@ -17,6 +23,7 @@ class routes{
     $usuarioController=new usuarioController();
     $categoriaController=new categoriaController();
     $carritoController=new carritoController();
+    $pedidoController=new pedidoController();
     // PAGINA PRINCIPAL
         $router->get(self::PATH, function () use ($productoController){
             $productoController->showIndex();
@@ -75,6 +82,9 @@ class routes{
         $router->post(self::PATH.'/gestion-productos',function () use ($productoController){
                 $productoController->muestraGestionProductos();
             });
+        $router->get(self::PATH.'/gestion-productos/$page', function ($page) use ($productoController){
+            $productoController->muestraGestionProductos();
+        });
     // AÑADIR PRODUCTO
         $router->get(self::PATH.'/add-producto', function () use ($productoController){
                 $productoController->addProducto();
@@ -95,7 +105,6 @@ class routes{
             });
         // REESTABLECER PRODUCTO
         $router->get(self::PATH.'/reestablecer-producto/$id', function ($id) use ($productoController){
-            die("entra");
                 $productoController->reestablecerProducto($id);
             });
 
@@ -146,6 +155,10 @@ class routes{
                 $usuarioController->cambiarRol($_POST['id'],$_POST['rol'],$_POST['nombre']);
             });
 
+    // VER PEDIDOS
+        $router->get(self::PATH.'/misPedidos', function () use ($pedidoController){
+                $pedidoController->verPedidos();
+            });
 
     // LA PAGINA NO SE ENCUENTRA
         $router->any('/404', function (){

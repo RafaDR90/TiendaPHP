@@ -40,7 +40,7 @@ use controllers\carritoController;
             <a href="<?=BASE_URL?>vaciar-carrito">Vaciar Carrito</a>
             <p>Total unidades: <span><?=$totalUnidades?></span></p>
             <p>Total precio: <span><?=$totalPrecio?>€</span></p>
-            <a href="<?=BASE_URL?>comprar">Comprar</a>
+            <a id="btnComprar"  href="<?=BASE_URL?>comprar">Comprar</a>
         </div>
     <?php
     endif ?>

@@ -16,6 +16,12 @@ class pedido{
         $this->fecha=$fecha;
         $this->hora=$hora;
     }
+
+    /**
+     * Transforma un array en un array de objetos pedido
+     * @param array $data array con los datos a transformar
+     * @return array
+     */
     public static function fromArray(array $data):array
     {
         $pedidos=[];

@@ -15,6 +15,11 @@ class categoria{
 
     }
 
+    /**
+     * Transforma un array en un array de objetos categoria
+     * @param array $data array con los datos a transformar
+     * @return array
+     */
     public static function fromArray(array $data):array
     {
         $categorias=[];

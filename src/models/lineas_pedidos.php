@@ -12,6 +12,12 @@ class lineas_pedidos{
         $this->producto_id=$producto_id;
         $this->unidades=$unidades;
     }
+
+    /**
+     * Transforma un array en un array de objetos lineas_pedidos
+     * @param array $data array con los datos a transformar
+     * @return array
+     */
     public static function fromArray(array $data):array
     {
         $lineas_pedidos=[];
