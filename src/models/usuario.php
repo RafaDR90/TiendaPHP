@@ -93,7 +93,7 @@ class usuario{
             $data['apellidos']??'',
             $data['email']??'',
             $data['password']??'',
-            'user',
+            $data['rol']??'user',
         );
     }
 
@@ -141,6 +141,9 @@ class usuario{
             return 'La contraseña no es valida';
         }else if(!ValidationUtils::TextoNoEsMayorQue($this->getPassword(),70)){
             return 'La contraseña no puede tener mas de 70 caracteres';
+        }
+        if ($this->getRol()!='admin' and $this->getRol()!='user'){
+            return 'El rol no es valido';
         }
         return null;
     }

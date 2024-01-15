@@ -25,6 +25,7 @@ use controllers\categoriaController,
             <li><a href="<?= BASE_URL ?>gestionarCategorias">Gestionar categorias</a></li>
             <li><a href="<?= BASE_URL ?>gestion-productos">Gestionar productos</a></li>
             <li><a href="<?=BASE_URL?>gestion-usuarios">Gestionar usuarios</a></li>
+            <li><a href="<?=BASE_URL?>CreateAccount">Crear Administrador</a></li>
             <?php endif;?>
         <?php else: ?>
             <li><a href="<?= BASE_URL ?>CreateAccount">Crear cuenta</a></li>

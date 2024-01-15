@@ -72,7 +72,7 @@ class usuarioController{
      * @return void
      */
     public function registro():void{
-        if (isset($_SESSION['identity'])){
+        if (isset($_SESSION['identity']) and $_SESSION['identity']['rol']!='admin'){
             header("Location: " . BASE_URL);
             exit();
         }

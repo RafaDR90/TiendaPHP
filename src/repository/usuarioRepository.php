@@ -15,12 +15,13 @@ class usuarioRepository{
      * @return bool Devuelve true si la operación es exitosa, o false en caso de excepción.
      */
     public function createUser($usuario){
+
         $id=null;
         $nombre=$usuario->getNombre();
         $apellidos=$usuario->getApellidos();
         $email=$usuario->getEmail();
         $password=$usuario->getPassword();
-        $rol='user';
+        $rol=$usuario->getRol();
         $this->db=new BaseDeDatos();
         try{
             $ins=$this->db->prepara("INSERT INTO usuarios (id,nombre,apellidos,email,password,rol) values (:id,:nombre,:apellidos,:email,:password,:rol)");

@@ -21,12 +21,15 @@ a simple vista.
     -CREAR CUENTA
         Se envía el formulario por POST, se valida (valida string y que no esté repetido el correo), encripta la
         contraseña y crea cuenta en la Base de datos.
+        -ADMIN
+            Si estas identificado como administrador, puedes crear un usuario, este tendra rol de administrador.
     -IDENTIFICARSE
         Comprueba usuario y contraseña y crea una sesión.
 
     -GESTIONAR USUARIOS
         Ves todos los usuarios en una tabla, junto con su rol de Administrador/Usuario. Se puede filtrar por rol.
         El usuario Admin puede cambiar el rol de todos los usuarios excepto el suyo.
+
 
 --GESTIÓN CATEGORÍAS
     -Muestra todas las categorías junto con la opción de Editar, Eliminar y Añadir.
