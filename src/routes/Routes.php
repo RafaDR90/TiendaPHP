@@ -1,14 +1,14 @@
 <?php
 namespace routes;
-use controllers\usuarioController;
-use controllers\categoriaController;
-use controllers\productoController;
-use controllers\carritoController;
+use controllers\UsuarioController;
+use controllers\CategoriaController;
+use controllers\ProductoController;
+use controllers\CarritoController;
 use controllers\ErrorController;
-use controllers\pedidoController;
+use controllers\PedidoController;
 use Dotenv\Exception\InvalidEncodingException;
 use lib\Router;
-class routes{
+class Routes{
     const PATH="/TiendaPHP";
 
     /**

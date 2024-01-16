@@ -2,12 +2,12 @@
 namespace controllers;
 
 use lib\Pages,
-    service\pedidoService,
-    service\productoService,
-    models\pedido,
-    models\lineas_pedidos,
-    models\producto;
-class pedidoController{
+    service\PedidoService,
+    service\ProductoService,
+    models\Pedido,
+    models\Lineas_pedidos,
+    models\Producto;
+class PedidoController{
     private Pages $pages;
     public function __construct()
     {
@@ -46,7 +46,7 @@ class pedidoController{
      * @param $id int id del pedido
      * @return array|void
      */
-    public static function getItems($id):array{
+    public static function getItems(int $id):array{
         $pedidoService=new pedidoService();
         $items=$pedidoService->getItemsPorId($id);
         if (is_string($items)){
@@ -62,7 +62,7 @@ class pedidoController{
      * @param $id int id del producto
      * @return array|void
      */
-    public static function getDatosItem($id):array{
+    public static function getDatosItem(int $id):array{
         $productoService=new productoService();
         $producto=$productoService->getProductoByIdProducto($id);
         if (is_string($producto)){

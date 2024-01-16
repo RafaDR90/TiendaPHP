@@ -31,19 +31,46 @@ class BaseDeDatos {
             exit;
         }
     }
+
+    /**
+     * ejecuta una consulta SQL
+     * @param string $consultaSQL
+     * @return void
+     */
     public function consulta(string $consultaSQL): void{
         $this->resultado=$this->conexion->query($consultaSQL);
     }
+
+    /**
+     * extrae todos los registros de la consulta SQL
+     * @return mixed
+     */
     public function extraer_todos(): mixed{
         return $this->resultado->fetchAll(PDO::FETCH_ASSOC);
 
     }
+
+    /**
+     * extrae un registro de la consulta SQL
+     * @return mixed
+     */
     public function extraer_registro(): mixed{
         return ($fila=$this->resultado->fetch(PDO::FETCH_ASSOC))? $fila:false;
     }
+
+    /**
+     * hace un prepare de la consulta SQL
+     * @param string $querySQL
+     * @return false|\PDOStatement
+     */
     public function prepara(string $querySQL) {
         return $this->conexion->prepare($querySQL);
     }
+
+    /**
+     * devuelve la cantidad de filas afectadas por la última sentencia SQL
+     * @return int
+     */
     public function filasAfectadas(): int{
         return $this->resultado->rowCount();
     }

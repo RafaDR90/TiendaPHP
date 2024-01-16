@@ -2,13 +2,13 @@
 namespace controllers;
 use lib\Pages;
 
-use service\lineasPedidoService;
-use service\pedidoService;
-use service\productoService;
+use service\LineasPedidoService;
+use service\PedidoService;
+use service\ProductoService;
 use utils\ValidationUtils;
-use utils\utils;
+use utils\Utils;
 
-class carritoController
+class CarritoController
 {
     private Pages $pages;
     public function __construct()
@@ -21,7 +21,7 @@ class carritoController
      * @param $id int id del producto a añadir
      * @return void redirige a la vista del carrito
      */
-    public function addProducto($id): void
+    public function addProducto(int $id): void
     {
         $id=ValidationUtils::SVNumero($id);
         if (!isset($id)){
@@ -84,7 +84,7 @@ class carritoController
      * @param $id int id del producto a restar
      * @return void redirige a la vista del carrito
      */
-    public function restarProducto($id): void{
+    public function restarProducto(int $id): void{
         $id=ValidationUtils::SVNumero($id);
         if (!isset($id)){
             $this->pages->render("producto/muestraInicio",["error"=>"Ha habido un problema al restar el producto a la cesta, si el problema persiste contacte con soporte tecnico"]);
@@ -108,7 +108,7 @@ class carritoController
      * @param $id int id del producto a aumentar
      * @return void redirige a la vista del carrito
      */
-    public function aumentarProducto($id): void{
+    public function aumentarProducto(int $id): void{
         $id=ValidationUtils::SVNumero($id);
         if (!isset($id)){
             $this->pages->render("producto/muestraInicio",["error"=>"Ha habido un problema al aumentar el producto a la cesta, si el problema persiste contacte con soporte tecnico"]);
@@ -134,7 +134,7 @@ class carritoController
      * @param $id int id del producto a eliminar
      * @return void redirige a la vista del carrito
      */
-    public function eliminarProducto($id): void{
+    public function eliminarProducto(int $id): void{
         $id=ValidationUtils::SVNumero($id);
         if (!isset($id)){
             $this->pages->render("producto/muestraInicio",["error"=>"Ha habido un problema al eliminar el producto a la cesta, si el problema persiste contacte con soporte tecnico"]);

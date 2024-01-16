@@ -1,7 +1,7 @@
 <?php
 namespace service;
-use repository\usuarioRepository;
-class usuarioService{
+use repository\UsuarioRepository;
+class UsuarioService{
     private usuarioRepository $usuarioRepository;
     public function __construct()
     {

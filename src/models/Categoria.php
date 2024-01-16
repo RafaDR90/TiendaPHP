@@ -2,7 +2,7 @@
 namespace models;
 
 
-class categoria{
+class Categoria{
     private ?int $id;
     private string $nombre;
 
@@ -64,23 +64,5 @@ class categoria{
     {
         $this->nombre = $nombre;
     }
-
-    public function getDb(): BaseDeDatos
-    {
-        return $this->db;
-    }
-
-    public function setDb(BaseDeDatos $db): void
-    {
-        $this->db = $db;
-    }
-
-
-
-
-
-
-
-
 
 }

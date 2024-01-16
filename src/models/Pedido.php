@@ -1,6 +1,6 @@
 <?php
 namespace models;
-class pedido{
+class Pedido{
     private ?int $id;
     private ?int $usuario_id;
     private float $coste;

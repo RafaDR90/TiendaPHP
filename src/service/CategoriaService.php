@@ -1,8 +1,8 @@
 <?php
 namespace service;
-use repository\categoriaRepository;
+use repository\CategoriaRepository;
 
-class categoriaService{
+class CategoriaService{
     private $categoriaRepository;
     public function __construct()
     {

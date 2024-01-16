@@ -3,7 +3,7 @@ namespace repository;
 use lib\BaseDeDatos,
     PDO,
     PDOException;
-class lineasPedidoRepository{
+class LineasPedidoRepository{
     private $db;
     public function __construct()
     {

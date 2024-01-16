@@ -2,7 +2,7 @@
 namespace models;
 use utils\ValidationUtils;
 
-class usuario{
+class Usuario{
     private string|null $id;
     private string $nombre;
     private string $apellidos;
@@ -153,7 +153,7 @@ class usuario{
      * @param $pasword string contraseña a comprobar
      * @return bool true si la contraseña es correcta o false si no lo es
      */
-    public function comprobarPassword($pasword){
+    public function comprobarPassword( string $pasword){
         if (password_verify($this->getPassword(),$pasword)){
             return true;
         }else{

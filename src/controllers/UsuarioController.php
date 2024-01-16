@@ -1,12 +1,12 @@
 <?php
 namespace controllers;
 use lib\Pages;
-use models\usuario;
-use service\usuarioService;
-use utils\utils;
+use models\Usuario;
+use service\UsuarioService;
+use utils\Utils;
 use utils\ValidationUtils;
 
-class usuarioController{
+class UsuarioController{
     private usuarioService $usuarioService;
     private Pages $pages;
 
@@ -131,7 +131,7 @@ class usuarioController{
      * @param $rol string el rol de los usuarios a mostrar
      * @return void renderiza la vista de gestion de usuarios
      */
-    public function muestraGestionUsuarios($rol=null):void{
+    public function muestraGestionUsuarios(string|null $rol=null):void{
         if (!isset($_SESSION['identity'])or $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio', ['error' => 'No tienes permisos para acceder a esta pagina']);
             exit();
@@ -153,6 +153,11 @@ class usuarioController{
         }
         $this->pages->render('usuario/gestionUsuarios', ['usuarios' => $usuarios]);
     }
+
+    /**
+     * funcion que obtiene los usuarios de la base de datos
+     * @return array|false|string
+     */
     public static function obtenerUsuarios(){
         $usuarioService=new usuarioService();
         return $usuarioService->getUsuarios();
@@ -166,7 +171,7 @@ class usuarioController{
      * @param $nombre string el nombre del usuario para mostrarlo en el mensaje de exito
      * @return void renderiza la vista de gestion de usuarios con un mensaje de exito o error
      */
-    public function cambiarRol($id, $rol, $nombre):void{
+    public function cambiarRol(int $id, string $rol, string $nombre):void{
         //comprueba que el usuario sea admin
         if (!isset($_SESSION['identity'])or $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio', ['error' => 'No tienes permisos para acceder a esta pagina']);

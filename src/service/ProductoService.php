@@ -1,7 +1,7 @@
 <?php
 namespace service;
-use repository\productoRepository;
-class productoService{
+use repository\ProductoRepository;
+class ProductoService{
     private $productoRepository;
     public function __construct()
     {

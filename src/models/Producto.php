@@ -2,7 +2,7 @@
 namespace models;
 use utils\ValidationUtils;
 
-class producto{
+class Producto{
     private ?int $id;
     private ?int $categoria_id;
     private string $nombre;

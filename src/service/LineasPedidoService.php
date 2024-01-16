@@ -1,8 +1,8 @@
 <?php
 namespace service;
-use repository\lineasPedidoRepository;
+use repository\LineasPedidoRepository;
 
-class lineasPedidoService{
+class LineasPedidoService{
     private $lineasPedidoRepository;
     public function __construct()
     {

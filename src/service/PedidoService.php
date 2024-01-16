@@ -1,7 +1,7 @@
 <?php
 namespace service;
-use repository\pedidoRepository;
-class pedidoService{
+use repository\PedidoRepository;
+class PedidoService{
     private $pedidoRepository;
     public function __construct()
     {

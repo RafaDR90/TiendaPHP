@@ -3,7 +3,7 @@ namespace repository;
 use lib\BaseDeDatos,
     PDO,
     PDOException;
-class usuarioRepository{
+class UsuarioRepository{
     public function __construct()
     {
         $this->db=new BaseDeDatos();

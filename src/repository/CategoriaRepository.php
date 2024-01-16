@@ -3,7 +3,9 @@ namespace repository;
 use lib\BaseDeDatos,
     PDO,
     PDOException;
-class categoriaRepository{
+use models\Categoria;
+
+class CategoriaRepository{
     private $db;
     public function __construct()
     {

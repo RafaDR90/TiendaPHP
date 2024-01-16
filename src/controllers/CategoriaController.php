@@ -1,11 +1,11 @@
 <?php
 namespace controllers;
 use lib\Pages;
-use models\categoria;
-use service\categoriaService;
+use models\Categoria;
+use service\CategoriaService;
 use utils\ValidationUtils;
 
-class categoriaController{
+class CategoriaController{
     private categoriaService $categoriaService;
     private Pages $pages;
     public function __construct()
@@ -44,7 +44,7 @@ class categoriaController{
      * @param $id int el id de la categoria a eliminar
      * @return void renderiza la vista de gestion de categorias
      */
-    public function eliminarCategoriaPorId($id):void{
+    public function eliminarCategoriaPorId(int $id):void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();
@@ -67,7 +67,7 @@ class categoriaController{
      * @param $id int el id de la categoria a editar
      * @return void renderiza la vista de gestion de categoria
      */
-    public function editarCategoria($id):void{
+    public function editarCategoria(int $id):void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();

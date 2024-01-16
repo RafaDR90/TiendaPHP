@@ -2,7 +2,7 @@
 namespace utils;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-class utils{
+class Utils{
     /**
      * Comprueba si existe una sesión con el nombre indicado y la borra
      * @param $nombreSession
@@ -20,7 +20,7 @@ class utils{
      * @param $productosCarrito
      * @return string
      */
-    public static function createHtmlContent($productosCarrito): string{
+    public static function createHtmlContent(array $productosCarrito): string{
         $htmlContent = "<!DOCTYPE html>
 <html>
 <head>
@@ -101,7 +101,7 @@ class utils{
      * @param $htmlContent string html con el contenido del correo
      * @return string[] Mensaje de éxito o error
      */
-    public static function enviarCorreoCompra($htmlContent): array {
+    public static function enviarCorreoCompra(string $htmlContent): array {
         $mail = new PHPMailer(true);
 
         try {

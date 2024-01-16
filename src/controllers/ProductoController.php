@@ -1,12 +1,12 @@
 <?php
 namespace controllers;
 use lib\Pages;
-use models\producto;
-use service\categoriaService;
-use service\productoService;
+use models\Producto;
+use service\CategoriaService;
+use service\ProductoService;
 use utils\ValidationUtils;
 
-class productoController{
+class ProductoController{
     private Pages $pages;
     private productoService $productoService;
     public function __construct()
@@ -274,7 +274,7 @@ class productoController{
      * @param $edit array datos del producto a editar
      * @return void renderiza la vista de gestion de productos
      */
-    public function confirmaEdicion($id, $edit):void{
+    public function confirmaEdicion(int$id,array $edit):void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();
@@ -442,7 +442,7 @@ class productoController{
      * @param $id int ID de producto
      * @return void
      */
-    public function reestablecerProducto($id):void{
+    public function reestablecerProducto(int $id):void{
         if (!isset($_SESSION['identity'])|| $_SESSION['identity']['rol']!='admin'){
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();
