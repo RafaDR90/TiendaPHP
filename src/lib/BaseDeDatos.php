@@ -1,7 +1,8 @@
 <?php
 
 namespace lib;
-use PDO;
+use PDO,
+    PDOException;
 class BaseDeDatos {
     private  $conexion;
     private mixed $resultado;
