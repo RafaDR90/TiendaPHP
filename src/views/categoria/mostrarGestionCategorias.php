@@ -1,7 +1,7 @@
 <?php
 use JasonGrimes\Paginator;
-use controllers\categoriaController;
-$categorias= categoriaController::obtenerCategorias();
+use controllers\CategoriaController;
+$categorias= CategoriaController::obtenerCategorias();
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

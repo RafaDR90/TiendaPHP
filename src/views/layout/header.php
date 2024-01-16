@@ -1,6 +1,6 @@
 <?php
-use controllers\categoriaController,
-    controllers\productoController;?>
+use controllers\CategoriaController,
+    controllers\ProductoController;?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,12 +33,12 @@ use controllers\categoriaController,
             <?php endif; ?>
             <li><a href="<?=BASE_URL?>mostrarCarrito">Ver Carrito</a></li>
         </ul>
-        <?php $categorias= categoriaController::obtenerCategorias();?>
+        <?php $categorias= CategoriaController::obtenerCategorias();?>
         <nav class="navPrincipal">
             <ul style="display: flex; gap: 15px">
                 <?php foreach ($categorias as $categoria):
                     // Compruebo si hay productos en stock para mostrar la categoria
-                    $hProductos=productoController::productosPorCategoria($categoria->getId());
+                    $hProductos=ProductoController::productosPorCategoria($categoria->getId());
                     $disponible=false;
                     if (isset($hProductos) and !empty($hProductos)){
                         foreach ($hProductos as $producto){

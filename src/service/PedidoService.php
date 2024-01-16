@@ -5,7 +5,7 @@ class PedidoService{
     private $pedidoRepository;
     public function __construct()
     {
-        $this->pedidoRepository=new pedidoRepository();
+        $this->pedidoRepository=new PedidoRepository();
     }
     public function create($pedido){
         return $this->pedidoRepository->create($pedido);

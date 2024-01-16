@@ -1,10 +1,10 @@
 <?php
-use controllers\pedidoController;
+use controllers\PedidoController;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$pedidos=pedidoController::getPedidos($_SESSION['identity']['id']);
+$pedidos=PedidoController::getPedidos($_SESSION['identity']['id']);
 ?>
 <div class="tituloPedidos">
     <h3>Mis pedidos</h3>
@@ -12,9 +12,9 @@ $pedidos=pedidoController::getPedidos($_SESSION['identity']['id']);
 foreach ($pedidos as $pedido):?>
 <div class="pedidoContainer">
     <p>Pedido del <?= date('d/m/Y', strtotime($pedido->getFecha())) ?></p>
-    <?php $items=pedidoController::getItems($pedido->getId());
+    <?php $items=PedidoController::getItems($pedido->getId());
     foreach ($items as $item):
-        $producto=pedidoController::getDatosItem($item->getProductoId());
+        $producto=PedidoController::getDatosItem($item->getProductoId());
     ?>
         <div class="infoProductoPedido">
             <div class="pedidoImgContainer">

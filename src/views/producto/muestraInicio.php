@@ -1,11 +1,11 @@
 <?php
 
-use controllers\productoController;
+use controllers\ProductoController;
 ?>
 <div class="productosContainerPrincipal">
 <?php
 foreach ($categorias as $categoria):
-    $productos=productoController::productosPorCategoria($categoria->getId());
+    $productos=ProductoController::productosPorCategoria($categoria->getId());
     $disponible=false;
     if (isset($productos) and !empty($productos)){
         foreach ($productos as $producto){

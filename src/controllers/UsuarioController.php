@@ -12,7 +12,7 @@ class UsuarioController{
 
     public function __construct()
     {
-        $this->usuarioService=new usuarioService();
+        $this->usuarioService=new UsuarioService();
         $this->pages=new Pages();
     }
 
@@ -29,7 +29,7 @@ class UsuarioController{
             if ($_POST['data']){
                 $login=$_POST['data'];
 
-                $usuario=usuario::fromArray($login);
+                $usuario=Usuario::fromArray($login);
                 $error=$usuario->saneaYValidaUsuario();
                 if($error){
                     $this->pages->render('producto/muestraInicio', ['error' => $error]);
@@ -79,7 +79,7 @@ class UsuarioController{
         if($_SERVER['REQUEST_METHOD']=='POST'){
             if ($_POST['data']){
                 $registrado=$_POST['data'];
-                $usuario=usuario::fromArray($registrado);
+                $usuario=Usuario::fromArray($registrado);
                 $error=$usuario->saneaYValidaUsuario();
                 if($error){
                     $this->pages->render('usuario/registro', ['error' => $error]);
@@ -121,8 +121,8 @@ class UsuarioController{
             header("Location: " . BASE_URL);
             exit();
         }
-        utils::deleteSession('identity');
-        utils::deleteSession('editandoProducto');
+        Utils::deleteSession('identity');
+        Utils::deleteSession('editandoProducto');
         header("Location: " . BASE_URL);
     }
 
@@ -159,7 +159,7 @@ class UsuarioController{
      * @return array|false|string
      */
     public static function obtenerUsuarios(){
-        $usuarioService=new usuarioService();
+        $usuarioService=new UsuarioService();
         return $usuarioService->getUsuarios();
 
     }

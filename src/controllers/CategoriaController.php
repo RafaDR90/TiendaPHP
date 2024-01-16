@@ -10,7 +10,7 @@ class CategoriaController{
     private Pages $pages;
     public function __construct()
     {
-        $this->categoriaService=new categoriaService();
+        $this->categoriaService=new CategoriaService();
         $this->pages=new Pages();
     }
 
@@ -19,9 +19,9 @@ class CategoriaController{
      * @return array|null devuelve un array de categorias o null si no hay categorias
      */
     public static function obtenerCategorias(): ?array{
-        $categoriaService=new categoriaService();
+        $categoriaService=new CategoriaService();
         $categorias=$categoriaService->getAll();
-        return categoria::fromArray($categorias);
+        return Categoria::fromArray($categorias);
 
     }
 
@@ -36,7 +36,7 @@ class CategoriaController{
             $this->pages->render('producto/muestraInicio',['error'=>'No tienes permisos para acceder a esta página']);
             exit();
         }
-        $this->pages->render('categoria/mostrarGestionCategorias',['categorias'=>categoriaController::obtenerCategorias()]);
+        $this->pages->render('categoria/mostrarGestionCategorias',['categorias'=>CategoriaController::obtenerCategorias()]);
     }
 
     /**
@@ -82,7 +82,7 @@ class CategoriaController{
                         $this->pages->render('categoria/mostrarGestionCategorias',['error'=>$resultado]);
                         exit();
                     }
-                    $resultado=categoria::fromArray([$resultado]);
+                    $resultado=Categoria::fromArray([$resultado]);
                     $this->pages->render('categoria/editarCategoria',['categoriaEdit'=>$resultado]);
                     exit();
                 }
@@ -109,7 +109,7 @@ class CategoriaController{
                 $this->pages->render('categoria/mostrarGestionCategorias',['error'=>$error]);
                 exit();
             }
-            $categoriaEditada=new categoria($id,$nuevoNombre);
+            $categoriaEditada=new Categoria($id,$nuevoNombre);
             //se edita la categoria
             $error=$this->categoriaService->update($categoriaEditada);
             if($error){
@@ -142,7 +142,7 @@ class CategoriaController{
                 $this->pages->render('categoria/mostrarGestionCategorias',['error'=>$error]);
                 exit();
             }
-            $categoria=new categoria(null,$nuevaCategoria);
+            $categoria=new Categoria(null,$nuevaCategoria);
             $error=$this->categoriaService->create($categoria);
             if($error){
                 $this->pages->render('categoria/mostrarGestionCategorias',['error'=>"error"]);

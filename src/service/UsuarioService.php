@@ -2,10 +2,10 @@
 namespace service;
 use repository\UsuarioRepository;
 class UsuarioService{
-    private usuarioRepository $usuarioRepository;
+    private UsuarioRepository $usuarioRepository;
     public function __construct()
     {
-        $this->usuarioRepository=new usuarioRepository();
+        $this->usuarioRepository=new UsuarioRepository();
     }
     public function createUser($usuario){
         return $this->usuarioRepository->createUser($usuario);

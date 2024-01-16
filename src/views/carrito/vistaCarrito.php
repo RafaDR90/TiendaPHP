@@ -1,5 +1,5 @@
 <?php
-use controllers\carritoController;
+use controllers\CarritoController;
 ?>
 <div class="carritoContainer">
     <?php
@@ -22,7 +22,7 @@ use controllers\carritoController;
 
         ?>
         <div class="productosCarrito">
-    <?php $productosCarrito=carritoController::obtenerProductosCarrito();
+    <?php $productosCarrito=CarritoController::obtenerProductosCarrito();
         foreach ($productosCarrito as $producto) :?>
             <div class="carritoCard">
                 <div class="carritoCardImg">

@@ -31,14 +31,14 @@ class PedidoController{
      * @return array|void
      */
     public static function getPedidos($id):array{
-        $pedidoService=new pedidoService();
+        $pedidoService=new PedidoService();
         $pedidos=$pedidoService->getPedidosPorId($id);
         if (is_string($pedidos)){
             $pages=new Pages();
             $pages->render('producto/muestraInicio',['error'=>"Ha ocurrido un error: ".$pedidos]);
             exit();
         }
-        return pedido::fromArray($pedidos);
+        return Pedido::fromArray($pedidos);
     }
 
     /**
@@ -47,14 +47,14 @@ class PedidoController{
      * @return array|void
      */
     public static function getItems(int $id):array{
-        $pedidoService=new pedidoService();
+        $pedidoService=new PedidoService();
         $items=$pedidoService->getItemsPorId($id);
         if (is_string($items)){
             $pages=new Pages();
             $pages->render('producto/muestraInicio',['error'=>"Ha ocurrido un error: ".$items]);
             exit();
         }
-        return lineas_pedidos::fromArray($items);
+        return Lineas_pedidos::fromArray($items);
     }
 
     /**
@@ -63,14 +63,14 @@ class PedidoController{
      * @return array|void
      */
     public static function getDatosItem(int $id):array{
-        $productoService=new productoService();
+        $productoService=new ProductoService();
         $producto=$productoService->getProductoByIdProducto($id);
         if (is_string($producto)){
             $pages=new Pages();
             $pages->render('producto/muestraInicio',['error'=>"Ha ocurrido un error: ".$producto]);
             exit();
         }
-        return producto::fromArray([$producto]);
+        return Producto::fromArray([$producto]);
     }
 
 }

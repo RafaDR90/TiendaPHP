@@ -6,7 +6,7 @@ class CategoriaService{
     private $categoriaRepository;
     public function __construct()
     {
-        $this->categoriaRepository=new categoriaRepository();
+        $this->categoriaRepository=new CategoriaRepository();
     }
 
     public function getAll(){

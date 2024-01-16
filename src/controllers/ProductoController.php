@@ -12,7 +12,7 @@ class ProductoController{
     public function __construct()
     {
         $this->pages=new Pages();
-        $this->productoService=new productoService();
+        $this->productoService=new ProductoService();
     }
 
     public function showIndex(){
@@ -72,7 +72,7 @@ class ProductoController{
                 exit();
             }
         }
-        $productos=producto::fromArray($productos);
+        $productos=Producto::fromArray($productos);
         $this->pages->render('producto/gestionProductos', ['gProductos' => $productos]);
 
     }
@@ -96,7 +96,7 @@ class ProductoController{
         if (is_string($productos)) {
             $this->pages->render('producto/muestraProductos', ['error' => $productos]);
         } else {
-                $this->pages->render('producto/muestraProductos', ['vProductos' => producto::fromArray($productos)]);
+                $this->pages->render('producto/muestraProductos', ['vProductos' => Producto::fromArray($productos)]);
         }
     }
 
@@ -106,12 +106,12 @@ class ProductoController{
      * @return array|null array de productos o null si hay un error.
      */
     public static function productosPorCategoria($id):?array{
-        $productoService=new productoService();
+        $productoService=new ProductoService();
         $productos=$productoService->productosPorCategoriaNotDeleted($id);
         if (is_string($productos)){
             return null;
         }
-        return producto::fromArray($productos);
+        return Producto::fromArray($productos);
     }
 
 
@@ -140,7 +140,7 @@ class ProductoController{
             if (!is_dir($directorioImg)){
                 mkdir($directorioImg, 0777, true);
             }
-            $categoriaService=new categoriaService();
+            $categoriaService=new CategoriaService();
             // Obtiene los datos de la categoria para añadirlos al nombre de la imagen
             $datosCategoria=$categoriaService->obtenerCategoriaPorID($_SESSION['editandoProducto']);
             // En caso de error muestra el error
@@ -179,7 +179,7 @@ class ProductoController{
             }
 
             //Valida los datos $_POST que no son imagen
-            $productoModel=new producto();
+            $productoModel=new Producto();
             $datos=$productoModel->saneaYvalidaProducto($_POST['producto']);
             if (is_string($datos)){
                 $this->pages->render('producto/addProducto',['error'=>$datos]);
@@ -264,7 +264,7 @@ class ProductoController{
             $this->pages->render('producto/gestionProductos',['error'=>"No se encuentra el producto a editar"]);
             exit();
         }
-        $producto=producto::fromArray([$producto]);
+        $producto=Producto::fromArray([$producto]);
         $this->pages->render('producto/editarProducto',['productoEdit'=>$producto[0]]);
     }
 
@@ -289,7 +289,7 @@ class ProductoController{
             $this->pages->render('producto/gestionProductos',['error'=>$oldProducto]);
             exit();
         }
-        $oldProducto=producto::fromArray([$oldProducto]);
+        $oldProducto=Producto::fromArray([$oldProducto]);
         /*Comprueba si se ha cambiado algun campo, si no se ha cambiado ninguno, no hace nada, si se ha cambiado alguno
           crea un array con los campos que se han cambiado.*/
         if($oldProducto[0]->getNombre()!=$edit['nombre']){
@@ -353,7 +353,7 @@ class ProductoController{
             if (!isset($nuevoProducto['categoria_id'])) {
                 $nuevoProducto['categoria_id'] = $oldProducto[0]->getCategoriaId();
             }
-            $productoModel = new producto();
+            $productoModel = new Producto();
 
             $nuevoProducto = $productoModel->saneaYvalidaProductoCompleto($nuevoProducto);
             if (is_string($nuevoProducto)) {
@@ -368,7 +368,7 @@ class ProductoController{
             if (!is_dir($directorioImg)){
                 mkdir($directorioImg, 0777, true);
             }
-            $categoriaService=new categoriaService();
+            $categoriaService=new CategoriaService();
             $catId=ValidationUtils::SVNumero($edit['categoria']);
             if(!isset($catId)){
                 $this->pages->render('producto/gestionProductos',['error'=>'Ha ocurrido un error inesperado']);

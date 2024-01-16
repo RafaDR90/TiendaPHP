@@ -1,5 +1,5 @@
 <?php
-use controllers\usuarioController;
+use controllers\UsuarioController;
 ?>
 <div class="gestionUsuarios">
     <h3>Gestion de usuarios</h3>
@@ -15,7 +15,7 @@ use controllers\usuarioController;
         </form>
     </div>
     <?php if (!isset($usuarios)){
-        $usuarios=usuarioController::obtenerUsuarios();
+        $usuarios=UsuarioController::obtenerUsuarios();
     }?>
     <table class="usuariosTable">
         <thead>

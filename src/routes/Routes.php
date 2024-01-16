@@ -19,11 +19,11 @@ class Routes{
     $router=new Router();
 
     // CREO CONTROLADORES
-    $productoController=new productoController();
-    $usuarioController=new usuarioController();
-    $categoriaController=new categoriaController();
-    $carritoController=new carritoController();
-    $pedidoController=new pedidoController();
+    $productoController=new ProductoController();
+    $usuarioController=new UsuarioController();
+    $categoriaController=new CategoriaController();
+    $carritoController=new CarritoController();
+    $pedidoController=new PedidoController();
     // PAGINA PRINCIPAL
         $router->get(self::PATH, function () use ($productoController){
             $productoController->showIndex();

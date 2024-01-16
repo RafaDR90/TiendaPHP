@@ -36,7 +36,7 @@ class CarritoController
         if (!isset($_SESSION['carrito'][$id])) {
             $_SESSION['carrito'][$id] = 1;
         } else {
-            $productoService=new productoService();
+            $productoService=new ProductoService();
             $producto=$productoService->getProductoByIdProducto($id);
             if ($_SESSION['carrito'][$id] >= $producto['stock']) {
                 $this->pages->render("carrito/vistaCarrito",["error"=>"No hay mas stock del producto"]);
@@ -61,7 +61,7 @@ class CarritoController
         }
         $productos = array();
         foreach ($_SESSION['carrito'] as $id => $unidades) {
-            $productoService=new productoService();
+            $productoService=new ProductoService();
             $producto = $productoService->getProductoByIdProducto($id);
             $producto['unidades'] = $unidades;
             $productos[] = $producto;
@@ -119,7 +119,7 @@ class CarritoController
         if (!isset($_SESSION['carrito'][$id])) {
             $this->pages->render("producto/muestraInicio",["error"=>"No se encuentra el producto en la cesta"]);
         }
-        $productoService=new productoService();
+        $productoService=new ProductoService();
         $producto=$productoService->getProductoByIdProducto($id);
         if ($_SESSION['carrito'][$id] >= $producto['stock']) {
             $this->pages->render("carrito/vistaCarrito",["error"=>"No hay mas stock del producto"]);
@@ -173,14 +173,14 @@ class CarritoController
             $this->pages->render("carrito/vistaCarrito",["error"=>"Debes iniciar sesion para comprar"]);
             exit();
         }
-        $pedidoService=new pedidoService();
-        $lineasPedidoService=new lineasPedidoService();
+        $pedidoService=new PedidoService();
+        $lineasPedidoService=new LineasPedidoService();
 
 
         if (!isset($_SESSION['carrito']) or empty($_SESSION['carrito'])){
             $this->pages->render("carrito/vistaCarrito",["error"=>"No hay productos en el carrito"]);
         }
-        $productosCarrito=carritoController::obtenerProductosCarrito();
+        $productosCarrito=CarritoController::obtenerProductosCarrito();
 
         //Comprueba que haya suficiente stock de los productos
         foreach ($productosCarrito as $producto){
@@ -189,7 +189,7 @@ class CarritoController
                 exit();
             }
         }
-        $productoService=new productoService();
+        $productoService=new ProductoService();
         //crear pedido
         $precioTotal=0;
         foreach ($productosCarrito as $producto){
@@ -214,9 +214,9 @@ class CarritoController
 
 
             // Crea el contenido del correo
-            $htmlContent =utils::createHtmlContent($productosCarrito);
+            $htmlContent =Utils::createHtmlContent($productosCarrito);
             // Envía el correo
-            $mensaje=utils::enviarCorreoCompra($htmlContent);
+            $mensaje=Utils::enviarCorreoCompra($htmlContent);
             if ($mensaje['tipo'] == 'exito') {
                 unset($_SESSION['carrito']);
                 $this->pages->render("carrito/compra-realizada",["exito"=>$mensaje['mensaje'],'htmlContent'=>$htmlContent]);

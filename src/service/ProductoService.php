@@ -5,7 +5,7 @@ class ProductoService{
     private $productoRepository;
     public function __construct()
     {
-        $this->productoRepository=new productoRepository();
+        $this->productoRepository=new ProductoRepository();
     }
 
     public function addProducto($producto){
