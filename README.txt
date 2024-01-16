@@ -4,6 +4,8 @@ En este README se explica cómo funcionan cosas internas de la aplicación; no s
 a simple vista.
 
 --INTRO
+    #Una vez descargado el proyecto, ejecutar composer update
+
     Nada más entrar a la página aparecerán 4 productos de cada categoría, si esta tiene al menos 4. En caso de no tener
     ningún producto, esta no aparecerá.
 
