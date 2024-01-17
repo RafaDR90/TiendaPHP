@@ -6,7 +6,8 @@ use lib\Pages,
     service\ProductoService,
     models\Pedido,
     models\Lineas_pedidos,
-    models\Producto;
+    models\Producto,
+    utils\ValidationUtils;
 class PedidoController{
     private Pages $pages;
     public function __construct()
@@ -113,6 +114,10 @@ class PedidoController{
         if (!Pedido::validaEstado($estado)) {
             $this->pages->render('pedidos/gestionPedidos', ['error' => 'El estado no es valido']);
             exit();
+        }
+        $id=ValidationUtils::SVNumero($id);
+        if (!isset($id)){
+            $this->pages->render('pedidos/gestionPedidos', ['error' => 'El id no es valido']);
         }
         $pedidoService = new PedidoService();
         $error=$pedidoService->cambiarEstadoPedido($id,$estado);

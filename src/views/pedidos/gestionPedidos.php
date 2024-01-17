@@ -4,10 +4,10 @@
     <form action="<?= BASE_URL ?>gestion-pedidos" method="POST">
         <label for="estado">Estado</label>
         <select name="estado" id="estado">
-            <option value="pendiente">Pendiente</option>
-            <option value="preparacion">Preparacion</option>
-            <option value="enviado">Enviado</option>
-            <option value="entregado">Entregado</option>
+            <option value="pendiente" <?php echo (isset($pedidos[0]) && $pedidos[0]->getEstado() == 'pendiente') ? 'selected' : ''; ?>>Pendiente</option>
+            <option value="preparacion" <?php echo (isset($pedidos[0]) && $pedidos[0]->getEstado() == 'preparacion') ? 'selected' : ''; ?>>Preparacion</option>
+            <option value="enviado" <?php echo (isset($pedidos[0]) && $pedidos[0]->getEstado() == 'enviado') ? 'selected' : ''; ?>>Enviado</option>
+            <option value="entregado" <?php echo (isset($pedidos[0]) && $pedidos[0]->getEstado() == 'entregado') ? 'selected' : ''; ?>>Entregado</option>
         </select>
         <input type="submit" value="Mostrar">
     </form>
@@ -42,10 +42,10 @@
                         <form action="<?= BASE_URL ?>cambiar-estado-pedido" method="POST">
                             <input type="hidden" name="pedido_id" value="<?= $pedido->getId() ?>">
                             <select name="nuevo_estado">
-                                <option value="pendiente">Pendiente</option>
-                                <option value="preparacion">Preparacion</option>
-                                <option value="enviado">Enviado</option>
-                                <option value="entregado">Entregado</option>
+                                <option value="pendiente" <?=($pedido->getEstado()=='pendiente')? "selected":""?>>Pendiente</option>
+                                <option value="preparacion" <?=($pedido->getEstado()=='preparacion')? "selected":""?>>Preparacion</option>
+                                <option value="enviado" <?=($pedido->getEstado()=='enviado')? "selected":""?>>Enviado</option>
+                                <option value="entregado" <?=($pedido->getEstado()=='entregado')? "selected":""?>>Entregado</option>
                             </select>
                             <input type="submit" value="Cambiar">
                         </form>
