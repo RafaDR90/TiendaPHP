@@ -13,6 +13,7 @@
 @import url('usuario/gestionUsuarios.css');
 /*Pedido*/
 @import url('pedido/pedidosView.css');
+@import url('pedido/gestionPedido.css');
 body {
     font-family: Arial, sans-serif;
     margin: 0;

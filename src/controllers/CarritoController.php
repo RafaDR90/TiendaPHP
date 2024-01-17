@@ -195,7 +195,7 @@ class CarritoController
         foreach ($productosCarrito as $producto){
             $precioTotal+=($producto["precio"] * $producto['unidades']);
         }
-        $datos=array("idUsuario"=>$_SESSION['identity']['id'],"fecha"=>date("Y-m-d H:i:s"),"coste"=>$precioTotal,"estado"=>"preparacion");
+        $datos=array("idUsuario"=>$_SESSION['identity']['id'],"fecha"=>date("Y-m-d H:i:s"),"coste"=>$precioTotal,"estado"=>"pendiente");
 
         // restar stock de los productos comprados
         foreach ($productosCarrito as $producto){

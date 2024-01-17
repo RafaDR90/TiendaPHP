@@ -1,0 +1,46 @@
+.gestion-pedidos-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.gestion-pedidos-container form {
+    margin-bottom: 20px;
+}
+
+.gestion-pedidos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.gestion-pedidos-table th, .gestion-pedidos-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.gestion-pedidos-table th {
+    background-color: #f2f2f2;
+}
+
+.gestion-pedidos-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.producto-info {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.gestion-pedidos-container form select,
+.gestion-pedidos-container form input[type="submit"] {
+    margin-top: 10px;
+}
+
+.no-pedidos {
+    color: #888;
+}

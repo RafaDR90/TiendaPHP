@@ -66,7 +66,7 @@ class PedidoRepository{
      * @param $id
      * @return array|false|string
      */
-    public function getPedidosPorId($id){
+    public function getPedidosPorId(int $id){
         $pedidos = null;
         $this->db=new BaseDeDatos();
         try {
@@ -88,7 +88,7 @@ class PedidoRepository{
      * @param $id
      * @return array|false|string
      */
-    public function getItemsPorId($id){
+    public function getItemsPorId(int $id){
         $items = null;
         $this->db=new BaseDeDatos();
         try {
@@ -103,6 +103,51 @@ class PedidoRepository{
             $this->db->cierraConexion();
 
             return $items;
+        }
+    }
+
+    /**
+     * Obtiene todos los pedidos de un estado.
+     * @param $estado string Estado de los pedidos a obtener.
+     * @return array|false|string
+     */
+    public function getPedidosPorEstado(string $estado)
+    {
+        try {
+            $sel = $this->db->prepara("SELECT * FROM pedidos WHERE estado = :estado ORDER BY fecha DESC");
+            $sel->bindValue(':estado', $estado);
+            $sel->execute();
+            $pedidos = $sel->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $pedidos = $e->getMessage();
+        } finally {
+            $sel->closeCursor();
+            $this->db->cierraConexion();
+            return $pedidos;
+        }
+    }
+
+    /**
+     * Cambia el estado de un pedido.
+     * @param $id int ID del pedido.
+     * @param $estado string Nuevo estado del pedido.
+     * @return string|null Devuelve null si la operación es exitosa, o un mensaje de error en caso de excepción.
+     */
+    public function cambiarEstadoPedido(int $id, string $estado)
+    {
+        try {
+            $upd = $this->db->prepara("UPDATE pedidos SET estado = :estado WHERE id = :id");
+            $upd->bindValue(':estado', $estado);
+            $upd->bindValue(':id', $id);
+            $upd->execute();
+        } catch (PDOException $e) {
+            $error = $e->getMessage();
+        } finally {
+            $upd->closeCursor();
+            $this->db->cierraConexion();
+            if (isset($error))
+                return $error;
+            return null;
         }
     }
 }

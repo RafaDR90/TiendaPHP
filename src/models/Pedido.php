@@ -39,6 +39,16 @@ class Pedido{
         return $pedidos;
     }
 
+    /**
+     * Valida el estado de un pedido
+     * @param $estado string estado a validar
+     * @return bool true si es valido, false si no lo es
+     */
+    public static function validaEstado($estado){
+        $estadosValidos=array('pendiente','preparacion','enviado','entregado');
+        return in_array($estado,$estadosValidos);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

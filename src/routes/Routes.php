@@ -160,6 +160,18 @@ class Routes{
                 $pedidoController->verPedidos();
             });
 
+    // GESTIONAR PEDIDOS
+        $router->get(self::PATH.'/gestion-pedidos', function () use ($pedidoController){
+                $pedidoController->gestionarPedidos();
+            });
+        $router->post(self::PATH.'/gestion-pedidos', function () use ($pedidoController){
+            $pedidoController->gestionarPedidos();
+        });
+
+        $router->post(self::PATH.'/cambiar-estado-pedido', function () use ($pedidoController){
+                $pedidoController->cambiarEstadoPedido($_POST['pedido_id'],$_POST['nuevo_estado']);
+            });
+
     // LA PAGINA NO SE ENCUENTRA
         $router->any('/404', function (){
             header('Location: ' . self::PATH . '/error');

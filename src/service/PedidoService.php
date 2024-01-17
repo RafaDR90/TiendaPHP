@@ -19,4 +19,10 @@ class PedidoService{
     public function getItemsPorId($id){
         return $this->pedidoRepository->getItemsPorId($id);
     }
+    public function getPedidosPorEstado($estado){
+        return $this->pedidoRepository->getPedidosPorEstado($estado);
+    }
+    public function cambiarEstadoPedido($id,$estado){
+        return $this->pedidoRepository->cambiarEstadoPedido($id,$estado);
+    }
 }

@@ -73,4 +73,54 @@ class PedidoController{
         return Producto::fromArray([$producto]);
     }
 
+    /**
+     * Muestra la vista de gestion de pedidos, si se recibe un POST se muestran los pedidos con el estado indicado
+     * @return void
+     */
+    public function gestionarPedidos()
+    {
+        if (!isset($_SESSION['identity']) or $_SESSION['identity']['rol'] != 'admin') {
+            $this->pages->render('pedidos/muestraInicio', ['error' => 'Debes identificarte como administrador para poder administrar productos']);
+            exit();
+        }
+        if ($_SERVER['REQUEST_METHOD'] != "POST") {
+            $this->pages->render('pedidos/gestionPedidos');
+        } else {
+            $estado = $_POST['estado'];
+            if (!Pedido::validaEstado($estado)) {
+                $this->pages->render('pedidos/gestionPedidos', ['error' => 'El estado no es valido']);
+                exit();
+            }
+            $pedidoService = new PedidoService();
+            $pedidos = $pedidoService->getPedidosPorEstado($estado);
+            $pedidos = Pedido::fromArray($pedidos);
+            $this->pages->render('pedidos/gestionPedidos', ['pedidos' => $pedidos]);
+        }
+    }
+
+    /**
+     * Funcion que cambia el estado de un pedido
+     * @param $id int id del pedido
+     * @param $estado string estado del pedido
+     * @return void
+     */
+    public function cambiarEstadoPedido(int $id, string $estado)
+    {
+        if (!isset($_SESSION['identity']) or $_SESSION['identity']['rol'] != 'admin') {
+            $this->pages->render('pedidos/muestraInicio', ['error' => 'Debes identificarte como administrador para poder administrar productos']);
+            exit();
+        }
+        if (!Pedido::validaEstado($estado)) {
+            $this->pages->render('pedidos/gestionPedidos', ['error' => 'El estado no es valido']);
+            exit();
+        }
+        $pedidoService = new PedidoService();
+        $error=$pedidoService->cambiarEstadoPedido($id,$estado);
+        if (isset($error)){
+            $this->pages->render('pedidos/gestionPedidos', ['error' => 'Ha ocurrido un error: '.$error]);
+            exit();
+        }
+        $this->pages->render('pedidos/gestionPedidos', ['exito' => 'El estado del pedido se ha actualizado correctamente']);
+    }
+
 }
