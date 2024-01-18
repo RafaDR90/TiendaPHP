@@ -139,8 +139,11 @@ class Routes{
                 $carritoController->vaciarCarrito();
             });
     // COMPRAR
-        $router->get(self::PATH.'/comprar', function () use ($carritoController){
+        $router->post(self::PATH.'/comprar', function () use ($carritoController){
                 $carritoController->comprar();
+            });
+        $router->get(self::PATH.'/comprar', function () use ($carritoController){
+                $carritoController->addAdress();
             });
     //                                               USUARIOS
     // GESTIONAR USUARIOS

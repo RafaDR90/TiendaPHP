@@ -1,8 +1,5 @@
 <div class="registroContainer">
     <h3>Registrate</h3>
-    <?php if (isset($_SESSION['identity']['rol']) && $_SESSION['identity']['rol']=='admin'): ?>
-        <p style="color: red">Esta cuenta se creará con rol de administrador</p>
-    <?php endif; ?>
     <form action="<?=BASE_URL?>CreateAccount" method="post">
         <p>
         <label for="nombre">Nombre</label>
@@ -21,7 +18,11 @@
         <input id="password" type="password" name="data[password]" required>
         </p>
         <?php if (isset($_SESSION['identity']['rol']) && $_SESSION['identity']['rol']=='admin'): ?>
-        <input type="hidden" name="data[rol]" value="admin">
+            <label for="rol">Rol</label>
+            <select name="data[rol]" id="rol">
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+            </select
         <?php endif; ?>
         <p>
         <input type="submit" value="Registrarse">

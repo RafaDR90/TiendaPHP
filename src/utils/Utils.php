@@ -103,7 +103,6 @@ class Utils{
      */
     public static function enviarCorreoCompra(string $htmlContent): array {
         $mail = new PHPMailer(true);
-
         try {
             // Configuración del servidor SMTP
             $mail->isSMTP();
@@ -115,8 +114,8 @@ class Utils{
             $mail->Port = 587;
 
             // Remitentes y destinatarios
-            $mail->setFrom('rafapruebasdaw@gmail.com', 'Nombre del remitente');
-            $mail->addAddress('rafa18220delgado@gmail.com', 'Rafa');
+            $mail->setFrom('rafapruebasdaw@gmail.com', 'Primalk');
+            $mail->addAddress($_SESSION['identity']['email'], $_SESSION['identity']['nombre']);
 
 
             $mail->isHTML(true);

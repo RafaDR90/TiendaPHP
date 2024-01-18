@@ -21,10 +21,12 @@ class PedidoRepository{
         $fechaHora = explode(" ", $datos['fecha']);
         $fecha = $fechaHora[0];
         $hora = $fechaHora[1];
-
         try {
-            $ins = $this->db->prepara("INSERT INTO pedidos (usuario_id, coste, estado, fecha, hora) VALUES (:usuario_id, :coste, :estado, :fecha, :hora)");
+            $ins = $this->db->prepara("INSERT INTO pedidos (usuario_id, provincia, localidad, direccion, coste, estado, fecha, hora) VALUES (:usuario_id, :provincia, :localidad, :direccion, :coste, :estado, :fecha, :hora)");
             $ins->bindValue(':usuario_id', $datos['idUsuario']);
+            $ins->bindValue(':provincia', $datos['provincia']);
+            $ins->bindValue(':localidad', $datos['localidad']);
+            $ins->bindValue(':direccion', $datos['direccion']);
             $ins->bindValue(':coste', $datos['coste']);
             $ins->bindValue(':estado', $datos['estado']);
             $ins->bindValue(':fecha', $fecha);

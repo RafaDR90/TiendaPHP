@@ -21,6 +21,9 @@
                 <th>Fecha</th>
                 <th>Producto</th>
                 <th>Unidades</th>
+                <th>Provincia</th>
+                <th>Localidad</th>
+                <th>Direccion</th>
                 <th>Cambiar Estado</th>
             </tr>
             <?php foreach ($pedidos as $pedido): ?>
@@ -38,6 +41,9 @@
                             </div>
                         <?php endforeach; ?>
                     </td>
+                    <td><?= $pedido->getProvincia() ?></td>
+                    <td><?= $pedido->getLocalidad() ?></td>
+                    <td><?= $pedido->getDireccion() ?></td>
                     <td>
                         <form action="<?= BASE_URL ?>cambiar-estado-pedido" method="POST">
                             <input type="hidden" name="pedido_id" value="<?= $pedido->getId() ?>">

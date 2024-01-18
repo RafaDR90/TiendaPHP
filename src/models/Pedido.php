@@ -1,13 +1,17 @@
 <?php
 namespace models;
+use utils\ValidationUtils;
 class Pedido{
     private ?int $id;
     private ?int $usuario_id;
+    private string $provincia;
+    private string $localidad;
+    private string $direccion;
     private float $coste;
     private string $estado;
     private string $fecha;
     private string $hora;
-    public function __construct(?int $id=null,int $usuario_id=null,float $coste=0,string $estado='',string $fecha='',string $hora='')
+    public function __construct(?int $id=null,int $usuario_id=null,float $coste=0,string $estado='',string $fecha='',string $hora='', string $direccion='', string $provincia='', string $localidad='')
     {
         $this->id=$id;
         $this->usuario_id=$usuario_id;
@@ -15,6 +19,9 @@ class Pedido{
         $this->estado=$estado;
         $this->fecha=$fecha;
         $this->hora=$hora;
+        $this->direccion=$direccion;
+        $this->provincia=$provincia;
+        $this->localidad=$localidad;
     }
 
     /**
@@ -33,6 +40,9 @@ class Pedido{
                 $dt['estado'] ?? '',
                 $dt['fecha'] ?? '',
                 $dt['hora'] ?? '',
+                $dt['direccion'] ?? '',
+                $dt['provincia'] ?? '',
+                $dt['localidad'] ?? ''
             );
             $pedidos[]=$pedido;
         }
@@ -47,6 +57,22 @@ class Pedido{
     public static function validaEstado($estado){
         $estadosValidos=array('pendiente','preparacion','enviado','entregado');
         return in_array($estado,$estadosValidos);
+    }
+
+    public static function validaDireccion($direccion){
+        if (!isset($direccion['localidad']) or !isset($direccion['provincia']) or !isset($direccion['direccion'])){
+            return false;
+        }
+        $direccion['localidad']=ValidationUtils::sanidarStringFiltro($direccion['localidad']);
+        $direccion['provincia']=ValidationUtils::sanidarStringFiltro($direccion['provincia']);
+        $direccion['direccion']=ValidationUtils::sanidarStringFiltro($direccion['direccion']);
+        if (!ValidationUtils::noEstaVacio($direccion['localidad']) or !ValidationUtils::noEstaVacio($direccion['provincia']) or !ValidationUtils::noEstaVacio($direccion['direccion'])){
+            return false;
+        }
+        if (!ValidationUtils::TextoNoEsMayorQue($direccion['localidad'],50) or !ValidationUtils::TextoNoEsMayorQue($direccion['provincia'],50) or !ValidationUtils::TextoNoEsMayorQue($direccion['direccion'],100)){
+            return false;
+        }
+        return $direccion;
     }
 
     public function getId(): ?int
@@ -108,6 +134,37 @@ class Pedido{
     {
         $this->hora = $hora;
     }
+
+    public function getProvincia(): string
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia(string $provincia): void
+    {
+        $this->provincia = $provincia;
+    }
+
+    public function getLocalidad(): string
+    {
+        return $this->localidad;
+    }
+
+    public function setLocalidad(string $localidad): void
+    {
+        $this->localidad = $localidad;
+    }
+
+    public function getDireccion(): string
+    {
+        return $this->direccion;
+    }
+
+    public function setDireccion(string $direccion): void
+    {
+        $this->direccion = $direccion;
+    }
+
 
 
 }

@@ -6,7 +6,8 @@ use service\LineasPedidoService;
 use service\PedidoService;
 use service\ProductoService;
 use utils\ValidationUtils;
-use utils\Utils;
+use utils\Utils,
+    models\Pedido;
 
 class CarritoController
 {
@@ -173,9 +174,18 @@ class CarritoController
             $this->pages->render("carrito/vistaCarrito",["error"=>"Debes iniciar sesion para comprar"]);
             exit();
         }
+        if (!isset($_POST['address'])){
+            $this->pages->render("carrito/vistaCarrito",["error"=>"Debes introducir una direccion de envio"]);
+            exit();
+        }
+        $direccion=Pedido::validaDireccion($_POST['address']);
+        if (!$direccion){
+            $this->pages->render("carrito/vistaCarrito",["error"=>"La direccion no es valida"]);
+            exit();
+        }
+
         $pedidoService=new PedidoService();
         $lineasPedidoService=new LineasPedidoService();
-
 
         if (!isset($_SESSION['carrito']) or empty($_SESSION['carrito'])){
             $this->pages->render("carrito/vistaCarrito",["error"=>"No hay productos en el carrito"]);
@@ -195,7 +205,7 @@ class CarritoController
         foreach ($productosCarrito as $producto){
             $precioTotal+=($producto["precio"] * $producto['unidades']);
         }
-        $datos=array("idUsuario"=>$_SESSION['identity']['id'],"fecha"=>date("Y-m-d H:i:s"),"coste"=>$precioTotal,"estado"=>"pendiente");
+        $datos=array("idUsuario"=>$_SESSION['identity']['id'],"fecha"=>date("Y-m-d H:i:s"),"coste"=>$precioTotal,"estado"=>"pendiente","direccion"=>$direccion['direccion'],"localidad"=>$direccion['localidad'],"provincia"=>$direccion['provincia']);
 
         // restar stock de los productos comprados
         foreach ($productosCarrito as $producto){
@@ -204,14 +214,15 @@ class CarritoController
                 $this->pages->render("carrito/vistaCarrito",["error"=>"Ha habido un problema al comprar los productos, si el problema persiste contacte con soporte tecnico"]);
             }
         }
-
-        $pedidoService->create($datos);
+        $error=$pedidoService->create($datos);
+        if (isset($error)){
+            $this->pages->render("carrito/vistaCarrito",["error"=>"Ha habido un problema al comprar los productos, si el problema persiste contacte con soporte tecnico"]);
+            exit();
+        }
         $pedidoId=$pedidoService->getIdUltimoPedido();
         foreach ($_SESSION['carrito'] as $id => $unidades) {
             $lineasPedidoService->create($id,$pedidoId['MAX(id)'],$unidades);
         }
-
-
 
             // Crea el contenido del correo
             $htmlContent =Utils::createHtmlContent($productosCarrito);
@@ -223,6 +234,15 @@ class CarritoController
             } else {
                 $this->pages->render("carrito/vistaCarrito",["error"=>$mensaje['mensaje']]);
             }
-
+    }
+    public function addAdress(){
+        if (!session_status() == PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        if (!isset($_SESSION['identity'])){
+            $this->pages->render("carrito/vistaCarrito",["error"=>"Debes iniciar sesion para comprar"]);
+            exit();
+        }
+        $this->pages->render("carrito/addAdress");
     }
 }
